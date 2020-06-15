@@ -1098,7 +1098,7 @@ if __name__ == '__main__':
     # setup parser
     parser = argparse.ArgumentParser()
     parser.add_argument('esx', help='Specify experimental station for which '
-        'the CTA GUI shall be started.', choices=['ESA', 'ESB'])
+        'the CTA GUI shall be started.', choices=['ESA', 'ESB', 'ESC', 'ESD', 'ESE', 'ESF'])
     parser.add_argument('device', help='Name of device running CTA.')
     parser.add_argument('-l', '--loglevel', help='Specify level for logging '
         '(used for debugging)'
