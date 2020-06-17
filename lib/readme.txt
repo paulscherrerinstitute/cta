@@ -28,6 +28,10 @@ How to delete a local environment and everything in it
 ------------------------------------------------------
 []$ conda env remove --name cta_lib
 
+How to uninstall cta_lib package from the active conda environment
+------------------------------------------------------------------
+[]$ conda remove cta_lib
+
 How to uninstall cta_lib package from my_env conda environment
 ---------------------------------------------------------------
 []$ conda remove --name my_env cta_lib
