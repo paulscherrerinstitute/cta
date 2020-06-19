@@ -697,7 +697,7 @@ class CtaLib:
 
         logging.info('fill_empty_series() is running')
 
-        length = len(seq[self._constants['event_code_range_base']])
+        length = len(list(seq.values())[0])
         for event_code in range(self._constants['event_code_range_base'],
                                 self._constants['event_code_range_base'] +
                                 self._constants['num_of_event_codes']):
