@@ -1,25 +1,28 @@
+{% set data = load_setup_py_data() %}
+
 package:
     name: cta_lib
-    version: 1.0.0
+    version: {{ data["version"] }}
 
 source:
     path: ..
 
 requirements:
     build:
-        - python
+        - python >=3.3
     run:
-        - python
+        - python >=3.3
         - pyepics
         - numpy
 
 build:
+    noarch: python
     entry_points:
-      - cta_lib_ex01_upload_downlaod_print = cta_lib.cta_lib_ex01_upload_downlaod_print:main
+      - cta_lib_ex01_upload_download_print = cta_lib.cta_lib_ex01_upload_download_print:main
       - cta_lib_ex02_upload_repeat_n_wait = cta_lib.cta_lib_ex02_upload_repeat_n_wait:main
       - cta_lib_ex03_upload_run_forever_stop = cta_lib.cta_lib_ex03_upload_run_forever_stop:main
       - cta_lib_ex04_callbacks = cta_lib.cta_lib_ex04_callbacks:main
 
 about:
-    home: https://git.psi.ch/epics_ioc_modules/cta
-    summary: "python library to interact with cta app on IOC"
+    home: {{ data["url"] }}
+    summary: {{ data["description"] }}

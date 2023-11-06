@@ -2,9 +2,9 @@ from distutils.core import setup
 
 setup(
     name='cta_lib',
-    version='1.0.0',
+    version='1.0.1',
     packages=['cta_lib'],
-    url='',
+    url='https://git.psi.ch/epics_ioc_modules/cta',
     license='',
     author='',
     author_email='',
