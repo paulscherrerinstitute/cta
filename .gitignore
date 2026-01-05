@@ -1,7 +1,5 @@
 .*
 O.*
 .cvsignore
-seqCtrl.h
-seqCtrl.c
 __pycache__
 *.pyc

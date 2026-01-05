@@ -1,3 +1,10 @@
+1.0.5 2025-19-12
+  - EPICS 7 upgrade
+  - TEMPORARY VERSION
+      - Application functional but runtime behavior is incorrect!
+      - See README.md
+      - Fix currently in development
+
 1.0.4 2019-04-29
   - Added "if ((pulseid % divisor) - offset == 0)" sequence start mode
   - Added "Started at" status

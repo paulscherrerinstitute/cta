@@ -12,7 +12,7 @@
 record(bo, "$(P)Start-I") {
 
   field(DTYP, "DevSeqCtrl")
-  field(OUT, "#@START_SIG")
+  field(OUT, "@START_SIG")
 
   field(TPRO, "$(TRA=0)")
 }
@@ -20,7 +20,7 @@ record(bo, "$(P)Start-I") {
 record(bo, "$(P)Stop-I") {
 
   field(DTYP, "DevSeqCtrl")
-  field(OUT, "#@STOP_SIG")
+  field(OUT, "@STOP_SIG")
 
   field(TPRO, "$(TRA=0)")
 }
