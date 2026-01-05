@@ -48,34 +48,15 @@ As a result, QP/C appeared to function inside the IOC, even though it never trul
 
 This behavior was **incidental, not correct**.
 
----
+## EPICS 7 issue
 
-## What changed with EPICS 7
+Upgrading EOS to the newest version together with EPICS 7 implicitly changed the IOC runtime behaviour. As a result, 
+CTA started behaving in a non-deterministic manner. This issue is suspected to be linked to the scheduler's ownership 
+probblem described above. CTA worked in EPICS3 by coincidence, and changes in the runtime behaviour exposes this issue. 
 
-EPICS 7 introduces:
+EOS was rolled back to a simpler version compatible with EPICS 7. CTA was upgraded as described below.  
 
-- **Shared-library IOC loading (`dlopen`)**
-- Strict symbol resolution
-- Explicit and deterministic thread scheduling
-- Clear separation between:
-  - interrupt handlers
-  - callbacks
-  - scan threads
-  - user logic
-
-In EPICS 7
-> **Nothing runs unless explicitly scheduled by EPICS.**:
-
-QP/C, however, is a **runtime framework**, not a library:
-- it assumes ownership of scheduling
-- it assumes control of event dispatch timing
-- it assumes a single, coherent execution loop
-
-These assumptions directly conflict with EPICS 7.
-
----
-
-## What was attempted during the migration
+## What was done during the migration
 
 To make the build reproducible and loadable:
 
@@ -93,46 +74,11 @@ This resulted in:
 
 ---
 
-## Why it still does NOT work (root cause)
+## Technical debt
 
-Although the IOC loads, **runtime behavior is incorrect and unstable**:
+Instead of rebuilding the QP/C-based application with newer version, the implementation shall be **replaced**.
 
-Observed symptoms:
-- Single-shot sequences sometimes do not fire
-- N-shot sequences partially execute (e.g. 200 requested → ~100 delivered)
-- Events arrive in bursts instead of pulse-synchronous increments
-- Latency before first execution
-- IOC hangs or deadlocks when attempting to "properly" run QP scheduling
-
-Critical observations:
-- The IOC runs correctly **until QP scheduling is activated**
-- All failures begin when attempting to drive the QP dispatcher
-- This indicates QP was never meant to be actively scheduled in this IOC
-
-### Root cause
-
-**QP/C and EPICS both implement user-space schedulers.**
-They are fundamentally incompatible in this context.
-
-- Linux schedules threads (kernel level)
-- EPICS schedules control logic (user space)
-- QP/C also schedules control logic (user space)
-
-There is no safe or deterministic way to make both frameworks
-co-own execution, timing, and event dispatch inside one IOC.
-
-EPICS 3 tolerated this overlap.
-EPICS 7 explicitly does not.
-
-This is an **architectural mismatch**, not a coding error.
-
----
-
-## Forward plan
-
-The QP/C-based implementation will be **replaced**.
-
-A new CTA version is under development using the **EPICS Sequencer (SNL)**,
+A new CTA version should be developed using the **EPICS Sequencer (SNL)**,
 which provides a native, deterministic state-machine model fully compatible
 with EPICS 7 and later.
 
@@ -146,4 +92,3 @@ This upcoming version will:
 ## Final note
 
 The current EPICS 7-compatible CTA version should be treated as **transitional**.
-It exists only to allow IOC startup while the SNL-based replacement is completed.
