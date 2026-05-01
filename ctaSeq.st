@@ -3,8 +3,8 @@ program ctaSeq
 int sos;
 int s1_proc;
 
-assign sos to     "{P}SOS-I";
-assign s1_proc to "{EOS}Seq1-Do-I";
+assign sos to     "{DN}:seq0Ctrl-SOS-I";
+assign s1_proc to "{EOS}:Seq1-Do-I";
 
 monitor sos;
 
