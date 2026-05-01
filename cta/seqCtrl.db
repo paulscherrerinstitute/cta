@@ -10,26 +10,21 @@
 #  TRA      -> used to control tracing (default=0)
 
 record(bo, "$(P)Start-I") {
-  field(TPRO, "$(TRA=0)")
 }
 
 record(bo, "$(P)Stop-I") {
-  field(TPRO, "$(TRA=0)")
 }
 
 record(ao, "$(P)SOS-I") {
-  field(TPRO, "$(TRA=0)")
 }
 
 record(longout, "$(P)Length-I") {
   field(PINI, "YES")
   field(DOL, "0")
-  field(TPRO, "$(TRA=0)")
 }
 
 record(longout, "$(P)Cycles-I") {
   field(PINI, "YES")
-  field(TPRO, "$(TRA=0)")
 }
 
 # Supported values
@@ -39,7 +34,6 @@ record(longout, "$(P)SCfgMode-I") {
   field(DESC, "Mode of start configuration")
   field(PINI, "YES")
   field(DOL, "0")
-  field(TPRO, "$(TRA=0)")
 
 }
 
@@ -47,46 +41,38 @@ record(longout, "$(P)SCfgModDivisor-I") {
   field(DESC, "Divisor of modulo start configuration")
   field(PINI, "YES")
   field(DOL, "1")
-  field(TPRO, "$(TRA=0)")
 }
 
 record(longout, "$(P)SCfgModOffset-I") {
   field(DESC, "Offset of modulo start configuration")
   field(PINI, "YES")
   field(DOL, "0")
-  field(TPRO, "$(TRA=0)")
 }
 
 record(longin, "$(P)Index-O") {
   field(PRIO, "HIGH")
-  field(TPRO, "$(TRA=0)")
 }
 
 record(longin, "$(P)IsRunning-O") {
   field(PRIO, "HIGH")
-  field(TPRO, "$(TRA=0)")
   field(FLNK, "$(FRUNNING="")")
 }
 
 record(longin, "$(P)IsEnabled-O") {
   field(DTYP, "DevSeqCtrl")
   field(PRIO, "HIGH")
-  field(TPRO, "$(TRA=0)")
 }
 
 record(longin, "$(P)Load_") {
   field(FLNK, "$(FLOAD)")
   field(PRIO, "HIGH")
-  field(TPRO, "$(TRA=0)")
 }
 
 record(longin, "$(P)SOP_") {
   field(PRIO, "HIGH")
-  field(TPRO, "$(TRA=0)")
   field(FLNK, "$(FINDEX)")
 }
 
 record(ai, "$(P)StartedAt-O") {
   field(PRIO, "HIGH")
-  field(TPRO, "$(TRA=0)")
 }
