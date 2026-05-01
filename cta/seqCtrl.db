@@ -59,7 +59,6 @@ record(longin, "$(P)IsRunning-O") {
 }
 
 record(longin, "$(P)IsEnabled-O") {
-  field(DTYP, "DevSeqCtrl")
   field(PRIO, "HIGH")
 }
 
