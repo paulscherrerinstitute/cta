@@ -42,8 +42,8 @@ record(fanout, "$(P)SOS2Hook_") {
 record(calc, "$(P)CurrSeq") {
   field(INPA, "$(P)SOS1.PACT")
   field(CALC, "A ? 1 : 2")
-  field(FLNK, "$(P)seq0Ctrl-SOS-I")
   field(TPRO, "$(TRA=0)")
+  field(FLNK, "$(P)seq0Ctrl-SOS-I")
 }
 
 record(fanout, "$(P)Drv") {

@@ -13,7 +13,7 @@ TEMPLATES += series/series.db
 TEMPLATES += superposition/superposition.db
 
 # SNL
-SNCSEQ += ctaSeq.st
+SNCSEQ += ctaSeq
 
 install_ui:
 	scripts/install_ui.sh ui
