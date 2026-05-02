@@ -15,63 +15,70 @@ record(bo, "$(P)Start-I") {
 record(bo, "$(P)Stop-I") {
 }
 
-record(ao, "$(P)SOS-I") {
+record(ao, "$(P)SOS-Cnt-I") {
+    field(DESC, "EPICS seq SOS count")
+}
+ 
+record(calcout, "$(P)SOS-I") {
+    field(INPA, "$(P)SOS-Cnt-I")
+    field(CALC, "A+1")
+    field(OUT,  "$(P)SOS-Cnt-I PP")
 }
 
 record(longout, "$(P)Length-I") {
-  field(PINI, "YES")
-  field(DOL, "0")
+    field(PINI, "YES")
+    field(DOL, "0")
 }
 
 record(longout, "$(P)Cycles-I") {
-  field(PINI, "YES")
+    field(PINI, "YES")
 }
 
 # Supported values
 # 0 = start immediately
 # 1 = start modulo
 record(longout, "$(P)SCfgMode-I") {
-  field(DESC, "Mode of start configuration")
-  field(PINI, "YES")
-  field(DOL, "0")
+    field(DESC, "Mode of start configuration")
+    field(PINI, "YES")
+    field(DOL, "0")
 
 }
 
 record(longout, "$(P)SCfgModDivisor-I") {
-  field(DESC, "Divisor of modulo start configuration")
-  field(PINI, "YES")
-  field(DOL, "1")
+    field(DESC, "Divisor of modulo start configuration")
+    field(PINI, "YES")
+    field(DOL, "1")
 }
 
 record(longout, "$(P)SCfgModOffset-I") {
-  field(DESC, "Offset of modulo start configuration")
-  field(PINI, "YES")
-  field(DOL, "0")
+    field(DESC, "Offset of modulo start configuration")
+    field(PINI, "YES")
+    field(DOL, "0")
 }
 
 record(longin, "$(P)Index-O") {
-  field(PRIO, "HIGH")
+    field(PRIO, "HIGH")
 }
 
 record(longin, "$(P)IsRunning-O") {
-  field(PRIO, "HIGH")
-  field(FLNK, "$(FRUNNING="")")
+    field(PRIO, "HIGH")
+    field(FLNK, "$(FRUNNING="")")
 }
 
 record(longin, "$(P)IsEnabled-O") {
-  field(PRIO, "HIGH")
+    field(PRIO, "HIGH")
 }
 
 record(longin, "$(P)Load_") {
-  field(FLNK, "$(FLOAD)")
-  field(PRIO, "HIGH")
+    field(FLNK, "$(FLOAD)")
+    field(PRIO, "HIGH")
 }
 
 record(longin, "$(P)SOP_") {
-  field(PRIO, "HIGH")
-  field(FLNK, "$(FINDEX)")
+    field(PRIO, "HIGH")
+    field(FLNK, "$(FINDEX)")
 }
 
 record(ai, "$(P)StartedAt-O") {
-  field(PRIO, "HIGH")
+    field(PRIO, "HIGH")
 }
