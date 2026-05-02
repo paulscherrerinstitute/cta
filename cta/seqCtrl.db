@@ -19,12 +19,6 @@ record(ao, "$(P)SOS-Cnt-I") {
     field(DESC, "EPICS seq SOS count")
 }
  
-record(calcout, "$(P)SOS-I") {
-    field(INPA, "$(P)SOS-Cnt-I")
-    field(CALC, "A+1")
-    field(OUT,  "$(P)SOS-Cnt-I PP")
-}
-
 record(longout, "$(P)Length-I") {
     field(PINI, "YES")
     field(DOL, "0")

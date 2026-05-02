@@ -20,8 +20,7 @@ record(bi, "$(P)SOS1") {
 }
 
 record(fanout, "$(P)SOS1Hook_") {
-  field(LNK1, "$(SOS1_FWD_HOOK=)")
-  field(LNK2, "$(P)CurrSeq")
+  field(LNK1, "$(EOS):Seq1-Do-I")
 }
 
 record(bi, "$(P)SOS2") {
@@ -34,8 +33,7 @@ record(bi, "$(P)SOS2") {
 }
 
 record(fanout, "$(P)SOS2Hook_") {
-  field(LNK1, "$(SOS2_FWD_HOOK=)")
-  field(LNK2, "$(P)CurrSeq")
+  field(LNK1, "$(EOS):Seq2-Do-I")
 }
 
 record(calc, "$(P)CurrSeq") {

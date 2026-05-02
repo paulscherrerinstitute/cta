@@ -28,17 +28,19 @@ state idle {
 
         if (cur == 1) {
             /* S1 just ran → prepare S2 */
-            s2_proc = 1;
-            pvPut(s2_proc);
+            printf("preare S1");
+            s1_proc = 1;
+            pvPut(s1_proc);
         } 
 
         else {
             /* S2 just ran → prepare S1 */
-            s1_proc = 1;
-            pvPut(s1_proc);
+        //    s2_proc = 1;
+        //    pvPut(s2_proc);
         }
 
     } state idle
 
 }
+
 }
