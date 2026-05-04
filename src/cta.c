@@ -40,14 +40,16 @@ long cta_state_machine(aSubRecord* prec) {
 	unsigned short *out_running;
 	unsigned short *out_started_at;
 	unsigned short *out_missed_pid;
-	unsigned short *out_enable_seq;
+	unsigned short *out_load_seq;
+	unsigned short *out_enable_evt;
 	out_start      = (unsigned short*) prec->vala;
 	out_stop       = (unsigned short*) prec->valb;
 	out_index      = (unsigned short*) prec->valc;
 	out_running    = (unsigned short*) prec->vald;
 	out_started_at = (unsigned short*) prec->vale;
 	out_missed_pid = (unsigned short*) prec->valf;
-	out_enable_seq = (unsigned short*) prec->valg;
+	out_load_seq   = (unsigned short*) prec->valg;
+	out_enable_evt = (unsigned short*) prec->valh;
 
 	// State update
 	if(stop)         state = STOPPED;
@@ -58,34 +60,40 @@ long cta_state_machine(aSubRecord* prec) {
 	switch(state) {
 
 		case STOPPED: 
+			*out_enable_evt=0;  // disable events
 			*out_running=0;     // update status 'running'
 			*out_index=0;       // reset index
 			*out_stop=0;        // reset stop button
 			break;
 		case STARTED:
+			*out_enable_evt=1;  // enable events
 			*out_running=1;     // update status 'running'
+			*out_load_seq=1;    // load sequence flag
 			*out_start=0;       // reset start button
 			break;
 		case RUNNING:
+			*out_load_seq=0;    // disable load sequence flag
 			*out_running=1;	    // update status 'running'	
-			if(index < length)
-				*out_index=++index; 
-			else 
+			*out_index=++index; // increment index
+			if(index == length) {
 				*out_stop=1;
-			*out_enable_seq=1;
-			errlogPrintf("OUT ENAB SEQ : %d\n",*out_enable_seq);
+				*out_enable_evt=0;
+			}
+			else {
+				*out_enable_evt=1;
+			}
 			break;
 
 	}
-
+/*
 	if(i%100==0) {
 		errlogPrintf(
-				"start:%d, stop:%d, len:%d, cycles:%d, cfgMod:%d, cfgModDiv:%d, cfgModOff:%d, out_enable_seq=%d, cfgPid:%llu\n",
-				start,stop,length,cycles,cfgMod,cfgModDiv,cfgModOff,*out_enable_seq,cfgPid
+				"start:%d, stop:%d, len:%d, cycles:%d, cfgMod:%d, cfgModDiv:%d, cfgModOff:%d, out_load_seq=%d, cfgPid:%llu STATE:%d\n",
+				start,stop,length,cycles,cfgMod,cfgModDiv,cfgModOff,*out_load_seq,cfgPid,state
 				);
 	}
 	i++;
-	
+*/	
 
 	return 0;
 }
