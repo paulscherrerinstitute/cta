@@ -18,12 +18,12 @@ long cta_state_machine(aSubRecord* prec) {
 	unsigned long long cfgPid = *(unsigned long long*) prec->h;
       
         // Outputs
-        unsigned short *out_index;
+	unsigned short *out_index;
 	unsigned short *out_running;
 	unsigned short *out_enabled;
 	unsigned short *out_load;
 	unsigned short *out_started_at;
-        out_index      = (unsigned short*) prec->vala;
+	out_index      = (unsigned short*) prec->vala;
 	out_running    = (unsigned short*) prec->valb;
 	out_enabled    = (unsigned short*) prec->valc;
 	out_load       = (unsigned short*) prec->vald;
