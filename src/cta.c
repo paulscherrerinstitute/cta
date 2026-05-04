@@ -28,13 +28,12 @@ long cta_state_machine(aSubRecord* prec) {
 	out_enabled    = (unsigned short*) prec->valc;
 	out_load       = (unsigned short*) prec->vald;
 	out_started_at = (unsigned short*) prec->vale;
-
-
-        if(i%100==0) {
-	        errlogPrintf(
-	        		"start:%d, stop:%d, len:%d, cycles:%d, cfgMod:%d, cfgModDiv:%d, cfgModOff:%d, cfgPid:%llu\n",
-	        		start,stop,length,cycles,cfgMod,cfgModDiv,cfgModOff,cfgPid
-	        		);
+	
+	if(i%100==0) {
+		errlogPrintf(
+				"start:%d, stop:%d, len:%d, cycles:%d, cfgMod:%d, cfgModDiv:%d, cfgModOff:%d, cfgPid:%llu\n",
+				start,stop,length,cycles,cfgMod,cfgModDiv,cfgModOff,cfgPid
+				);
 	}
 	i++;
 	return 0;
