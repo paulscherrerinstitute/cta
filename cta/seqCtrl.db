@@ -24,7 +24,7 @@ record(longout, "$(P)Length-I") {
 }
 
 record(longin, "$(DN):SerMaxLen-O") {
-    field(VAL, "2048")
+    field(VAL, "$(LENGTH)")
 }
 
 ### Number of repetitions
