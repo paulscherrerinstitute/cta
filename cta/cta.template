@@ -15,7 +15,7 @@
 # cta.db provided the records to glue all the elements together.
 
 file cta.db {
-  {P="$(DN):", LENGTH="$(LEN=2048)", SOS1_FWD_HOOK="$(DN):Seq1PerfStart-Cmd", SOS2_FWD_HOOK="$(DN):Seq2PerfStart-Cmd"}
+  {P="$(DN):", LENGTH="$(LEN=2048)", SOS1_FWD_HOOK="$(DN):Seq1PerfStart-Cmd", SOS2_FWD_HOOK="$(DN):Seq2PerfStart-Cmd", FLOAD="seq0Ser0-Load-I"}
 }
 
 # performance -----------------------------------------------------------------
@@ -35,8 +35,8 @@ file performance.db {
 ## sequence 0 --------------------------
 file seqCtrl.db {
   pattern
-  {P,                 }
-  {"$(DN):seq0Ctrl-"  }
+  {P,                 FLOAD,                   PIR       }
+  {"$(DN):seq0Ctrl-", "$(DN):seq0Ser0-Load-I", "$(PIR)"  }
 }
 
 file series.db {

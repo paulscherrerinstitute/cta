@@ -12,8 +12,7 @@ TEMPLATES += cta/seqCtrl.db
 TEMPLATES += series/series.db
 TEMPLATES += superposition/superposition.db
 
-# SNL
-SNCSEQ += ctaSeq
+SOURCES += src/cta.c
 
 install_ui:
 	scripts/install_ui.sh ui

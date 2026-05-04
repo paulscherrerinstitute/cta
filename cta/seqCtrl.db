@@ -1,33 +1,34 @@
-##
+###
 # Mandatory macros
 #  P      -> used as prefix for all record names
 #  FLOAD  -> used to forward load command
-#  FINDEX -> used to forward index command
-#  PULSE_ID_READ -> name of record to read pulse id from
+#  PIR    -> name of record to read pulse id from
 #
-# Optional macros
-#  FRUNNING -> used to forward running command (default="")
-#  TRA      -> used to control tracing (default=0)
 
+##################################
+# State machine input parameters
+##################################
+
+### Start
 record(bo, "$(P)Start-I") {
 }
 
+### Stop
 record(bo, "$(P)Stop-I") {
 }
 
-record(ao, "$(P)SOS-Cnt-I") {
-    field(DESC, "EPICS seq SOS count")
-}
- 
+### Sequence length 
 record(longout, "$(P)Length-I") {
     field(PINI, "YES")
     field(DOL, "0")
 }
 
+### Number of repetitions
 record(longout, "$(P)Cycles-I") {
     field(PINI, "YES")
 }
 
+### Sequence Modulo for divisor
 # Supported values
 # 0 = start immediately
 # 1 = start modulo
@@ -38,41 +39,75 @@ record(longout, "$(P)SCfgMode-I") {
 
 }
 
+### Sequence divisor
 record(longout, "$(P)SCfgModDivisor-I") {
     field(DESC, "Divisor of modulo start configuration")
     field(PINI, "YES")
     field(DOL, "1")
 }
 
+### Sequence offset 
 record(longout, "$(P)SCfgModOffset-I") {
     field(DESC, "Offset of modulo start configuration")
     field(PINI, "YES")
     field(DOL, "0")
 }
 
-record(longin, "$(P)Index-O") {
-    field(PRIO, "HIGH")
-}
+##################################
+# State machine outputs control
+##################################
 
-record(longin, "$(P)IsRunning-O") {
-    field(PRIO, "HIGH")
-    field(FLNK, "$(FRUNNING="")")
-}
-
-record(longin, "$(P)IsEnabled-O") {
-    field(PRIO, "HIGH")
-}
-
+### Load new sequence (Data-I changed)
 record(longin, "$(P)Load_") {
     field(FLNK, "$(FLOAD)")
     field(PRIO, "HIGH")
 }
 
-record(longin, "$(P)SOP_") {
+##################################
+# State machine outputs states
+##################################
+
+### Sequence current index 
+record(longin, "$(P)Index-O") {
     field(PRIO, "HIGH")
-    field(FLNK, "$(FINDEX)")
 }
 
+### Sequence running state
+record(longin, "$(P)IsRunning-O") {
+    field(PRIO, "HIGH")
+}
+
+### Sequence enable state
+record(longin, "$(P)IsEnabled-O") {
+    field(PRIO, "HIGH")
+}
+
+### Pulse ID at start of sequence  
 record(ai, "$(P)StartedAt-O") {
     field(PRIO, "HIGH")
+}
+
+##################################
+# State machine 
+##################################
+
+record(aSub, "$(P)SeqCtrl_") {
+    field(SNAM, "cta_state_machine")
+
+    # Input
+    field(INPA, "$(P)Start-I")
+    field(INPB, "$(P)Stop-I")
+    field(INPC, "$(P)Length-I")
+    field(INPD, "$(P)Cycles-I")
+    field(INPE, "$(P)SCfgMode-I")
+    field(INPF, "$(P)SCfgModDivisor-I")
+    field(INPG, "$(P)SCfgModOffset-I")
+    field(INPH, "$(PIR)")
+
+    # Output
+    field(OUTA, "$(P)Index-O PP")
+    field(OUTB, "$(P)IsRunning-O PP")
+    field(OUTC, "$(P)IsEnabled-O PP")
+    field(OUTD, "$(P)Load_ PP")
+    field(OUTE, "$(P)StartedAt-O PP")
 }
