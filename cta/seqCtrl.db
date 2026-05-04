@@ -96,18 +96,31 @@ record(aSub, "$(P)SeqCtrl_") {
 
     # Input
     field(INPA, "$(P)Start-I")
+    field(FTA,  "USHORT")
     field(INPB, "$(P)Stop-I")
+    field(FTB,  "USHORT")
     field(INPC, "$(P)Length-I")
+    field(FTC,  "USHORT")
     field(INPD, "$(P)Cycles-I")
+    field(FTD,  "USHORT")
     field(INPE, "$(P)SCfgMode-I")
+    field(FTE,  "USHORT")
     field(INPF, "$(P)SCfgModDivisor-I")
+    field(FTF,  "USHORT")
     field(INPG, "$(P)SCfgModOffset-I")
+    field(FTG,  "USHORT")
     field(INPH, "$(PIR)")
+    field(FTH,  "UINT64")
 
     # Output
     field(OUTA, "$(P)Index-O PP")
+    field(FTVA, "USHORT")
     field(OUTB, "$(P)IsRunning-O PP")
+    field(FTVB, "USHORT")
     field(OUTC, "$(P)IsEnabled-O PP")
+    field(FTVC, "USHORT")
     field(OUTD, "$(P)Load_ PP")
+    field(FTVD, "USHORT")
     field(OUTE, "$(P)StartedAt-O PP")
+    field(FTVE, "USHORT")
 }
