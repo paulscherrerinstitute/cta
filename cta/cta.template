@@ -35,8 +35,8 @@ file performance.db {
 ## sequence 0 --------------------------
 file seqCtrl.db {
   pattern
-  {P,                 FLOAD,                   PIR       }
-  {"$(DN):seq0Ctrl-", "$(DN):seq0Ser0-Load-I", "$(PIR)"  }
+  {P,                 DN_SER0,           FLOAD,                   PIR       }
+  {"$(DN):seq0Ctrl-", "$(DN):seq0Ser0-", "$(DN):seq0Ser0-Load-I", "$(PIR)"  }
 }
 
 file series.db {

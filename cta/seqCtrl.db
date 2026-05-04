@@ -57,9 +57,15 @@ record(longout, "$(P)SCfgModOffset-I") {
 # State machine outputs control
 ##################################
 
-### Load new sequence (Data-I changed)
-record(longin, "$(P)Load_") {
-    field(FLNK, "$(FLOAD)")
+### Enable sequence (Data-I changed)
+record(ao, "$(P)EnaSeq_") {
+    field(FLNK, "$(P)EnaSeq__")
+}
+record(calcout, "$(P)EnaSeq__") {
+    field(INPA, "$(P)EnaSeq_")
+    field(CALC, "A")
+    field(OOPT, "When Non-zero")
+    field(OUT,  "$(FLOAD) PP")
     field(PRIO, "HIGH")
 }
 
@@ -83,11 +89,6 @@ record(longin, "$(P)Index-O") {
 
 ### Sequence running state
 record(longin, "$(P)IsRunning-O") {
-    field(PRIO, "HIGH")
-}
-
-### Sequence enable state
-record(longin, "$(P)IsEnabled-O") {
     field(PRIO, "HIGH")
 }
 
@@ -120,18 +121,28 @@ record(aSub, "$(P)SeqCtrl_") {
     field(FTG,  "USHORT")
     field(INPH, "$(PIR)")
     field(FTH,  "UINT64")
+    field(INPI, "$(DN_SER0)Index-I")
+    field(FTI,  "USHORT")
+    field(INPJ, "$(P)IsRunning-O")
+    field(FTJ,  "USHORT")
+    field(INPK, "$(P)StartedAt-O")
+    field(FTK,  "USHORT")
+    field(INPL, "$(P)MissedPID-I PP")
+    field(FTL,  "USHORT")
 
     # Output
-    field(OUTA, "$(P)Index-O PP")
+    field(OUTA, "$(P)Start-I PP")
     field(FTVA, "USHORT")
-    field(OUTB, "$(P)IsRunning-O PP")
+    field(OUTB, "$(P)Stop-I PP")
     field(FTVB, "USHORT")
-    field(OUTC, "$(P)IsEnabled-O PP")
+    field(OUTC, "$(DN_SER0)Index-I PP")
     field(FTVC, "USHORT")
-    field(OUTD, "$(P)Load_ PP")
+    field(OUTD, "$(P)IsRunning-O PP")
     field(FTVD, "USHORT")
     field(OUTE, "$(P)StartedAt-O PP")
     field(FTVE, "USHORT")
     field(OUTF, "$(P)MissedPID-I PP")
     field(FTVF, "USHORT")
+    field(OUTG, "$(P)EnaSeq_ PP")
+    field(FTVG, "USHORT")
 }
