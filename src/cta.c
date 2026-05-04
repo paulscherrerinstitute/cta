@@ -1,8 +1,9 @@
 #include <aSubRecord.h>
 #include <dbDefs.h>
 #include <stdlib.h>
+#include <errlog.h>
 
 long cta_state_machine(aSubRecord* prec) {
-	errLogPrintf("OK!\n");
+	errlogPrintf("OK!\n");
 	return 0;
 }

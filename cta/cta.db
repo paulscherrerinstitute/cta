@@ -21,7 +21,8 @@ record(bi, "$(P)SOS1") {
 
 record(fanout, "$(P)SOS1Hook_") {
   field(LNK1, "$(P)supSer0_0")
-  field(LNK2, "$(EOS):Seq1-Do-I")
+  field(LNK2, "$(P)seq0Ctrl-SeqCtrl_")
+  field(LNK3, "$(EOS):Seq1-Do-I")
 }
 
 record(bi, "$(P)SOS2") {
@@ -35,5 +36,6 @@ record(bi, "$(P)SOS2") {
 
 record(fanout, "$(P)SOS2Hook_") {
   field(LNK1, "$(P)supSer0_0")
-  field(LNK2, "$(EOS):Seq2-Do-I")
+  field(LNK2, "$(P)seq0Ctrl-SeqCtrl_")
+  field(LNK3, "$(EOS):Seq2-Do-I")
 }
