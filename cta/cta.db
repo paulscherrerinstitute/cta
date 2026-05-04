@@ -12,7 +12,7 @@
 
 record(bi, "$(P)SOS1") {
   field(DTYP, "EVG START OF SEQ")
-  field(INP, "#C0 S1 @$(DEVICE)")
+  field(INP,  "#C0 S1 @$(DEVICE)")
   field(SCAN, "I/O Intr")
   field(PRIO, "HIGH")
   field(FLNK, "$(P)SOS1Hook_")
@@ -25,7 +25,7 @@ record(fanout, "$(P)SOS1Hook_") {
 
 record(bi, "$(P)SOS2") {
   field(DTYP, "EVG START OF SEQ")
-  field(INP, "#C0 S2 @$(DEVICE)")
+  field(INP,  "#C0 S2 @$(DEVICE)")
   field(SCAN, "I/O Intr")
   field(PRIO, "HIGH")
   field(FLNK, "$(P)SOS2Hook_")
