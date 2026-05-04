@@ -23,11 +23,13 @@ long cta_state_machine(aSubRecord* prec) {
 	unsigned short *out_enabled;
 	unsigned short *out_load;
 	unsigned short *out_started_at;
+	unsigned short *out_missed_pid;
 	out_index      = (unsigned short*) prec->vala;
 	out_running    = (unsigned short*) prec->valb;
 	out_enabled    = (unsigned short*) prec->valc;
 	out_load       = (unsigned short*) prec->vald;
 	out_started_at = (unsigned short*) prec->vale;
+	out_missed_pid = (unsigned short*) prec->valf;
 	
 	if(i%100==0) {
 		errlogPrintf(
@@ -35,6 +37,7 @@ long cta_state_machine(aSubRecord* prec) {
 				start,stop,length,cycles,cfgMod,cfgModDiv,cfgModOff,cfgPid
 				);
 	}
+
 	i++;
 	return 0;
 }

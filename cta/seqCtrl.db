@@ -63,6 +63,15 @@ record(longin, "$(P)Load_") {
     field(PRIO, "HIGH")
 }
 
+### Missed pulse IDs counter
+record(ao, "$(P)MissedPID-I") {
+    field(DESC, "Pulse IDs missed")
+}
+record(ao, "$(P)MissedPID-Reset_") {
+    field(OUT, "$(P)MissedPID-I PP")
+}
+
+
 ##################################
 # State machine outputs states
 ##################################
@@ -123,4 +132,6 @@ record(aSub, "$(P)SeqCtrl_") {
     field(FTVD, "USHORT")
     field(OUTE, "$(P)StartedAt-O PP")
     field(FTVE, "USHORT")
+    field(OUTF, "$(P)MissedPID-I PP")
+    field(FTVF, "USHORT")
 }
