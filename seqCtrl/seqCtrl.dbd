@@ -1,8 +1,0 @@
-registrar(DevSeqCtrlRegister)
-
-device(ao, VME_IO, DevSeqCtrlAo, "DevSeqCtrl")
-device(ai, VME_IO, DevSeqCtrlAi, "DevSeqCtrl")
-device(longout, VME_IO, DevSeqCtrlLongout, "DevSeqCtrl")
-device(longin, VME_IO, DevSeqCtrlLongin, "DevSeqCtrl")
-device(bo, INST_IO, DevSeqCtrlBo, "DevSeqCtrl")
-

@@ -1,0 +1,154 @@
+###
+# Mandatory macros
+#  P      -> used as prefix for all record names
+#  FLOAD  -> used to forward load command
+#  PIR    -> name of record to read pulse id from
+#
+
+##################################
+# State machine input parameters
+##################################
+
+### Start
+record(bo, "$(P)Start-I") {
+}
+
+### Stop
+record(bo, "$(P)Stop-I") {
+}
+
+### Sequence length 
+record(longout, "$(P)Length-I") {
+    field(PINI, "YES")
+    field(DOL, "0")
+}
+
+record(longin, "$(DN):SerMaxLen-O") {
+    field(VAL, "$(LENGTH)")
+}
+
+### Number of repetitions
+record(longout, "$(P)Cycles-I") {
+    field(PINI, "YES")
+}
+
+### Sequence Modulo for divisor
+# Supported values
+# 0 = start immediately
+# 1 = start modulo
+record(longout, "$(P)SCfgMode-I") {
+    field(DESC, "Mode of start configuration")
+    field(PINI, "YES")
+    field(DOL, "0")
+
+}
+
+### Sequence divisor
+record(longout, "$(P)SCfgModDivisor-I") {
+    field(DESC, "Divisor of modulo start configuration")
+    field(PINI, "YES")
+    field(DOL, "1")
+}
+
+### Sequence offset 
+record(longout, "$(P)SCfgModOffset-I") {
+    field(DESC, "Offset of modulo start configuration")
+    field(PINI, "YES")
+    field(DOL, "0")
+}
+
+##################################
+# State machine outputs control
+##################################
+
+### Enable sequence (Data-I changed)
+record(ao, "$(P)LoadSeq_") {
+    field(FLNK, "$(P)LoadSeq__")
+}
+record(calcout, "$(P)LoadSeq__") {
+    field(INPA, "$(P)LoadSeq_")
+    field(CALC, "A")
+    field(OOPT, "When Non-zero")
+    field(OUT,  "$(FLOAD) PP")
+    field(PRIO, "HIGH")
+}
+
+### Missed pulse IDs counter
+record(ao, "$(P)MissedPID-I") {
+    field(DESC, "Pulse IDs missed")
+}
+record(ao, "$(P)MissedPID-Reset_") {
+    field(OUT, "$(P)MissedPID-I PP")
+}
+
+
+##################################
+# State machine outputs states
+##################################
+
+### Sequence current index 
+record(longin, "$(P)Index-O") {
+    field(PRIO, "HIGH")
+}
+
+### Sequence running state
+record(longin, "$(P)IsRunning-O") {
+    field(PRIO, "HIGH")
+}
+
+### Pulse ID at start of sequence  
+record(int64in, "$(P)StartedAt-O") {
+    field(PRIO, "HIGH")
+}
+
+##################################
+# State machine 
+##################################
+
+record(aSub, "$(P)SeqCtrl_") {
+    field(SNAM, "cta_state_machine")
+
+    # Input
+    field(INPA, "$(P)Start-I")
+    field(FTA,  "USHORT")
+    field(INPB, "$(P)Stop-I")
+    field(FTB,  "USHORT")
+    field(INPC, "$(DN_SER0)Index-I")
+    field(FTC,  "USHORT")
+    field(INPD, "$(P)IsRunning-O")
+    field(FTD,  "USHORT")
+    field(INPE, "$(PIR)")
+    field(FTE,  "UINT64")
+    field(INPF, "$(P)StartedAt-O")
+    field(FTF,  "UINT64")
+    field(INPG, "$(P)MissedPID-I")
+    field(FTG,  "USHORT")
+    field(INPH, "$(P)Length-I")
+    field(FTH,  "USHORT")
+    field(INPI, "$(P)Cycles-I")
+    field(FTI,  "USHORT")
+    field(INPJ, "$(P)SCfgMode-I")
+    field(FTJ,  "USHORT")
+    field(INPK, "$(P)SCfgModDivisor-I")
+    field(FTK,  "USHORT")
+    field(INPL, "$(P)SCfgModOffset-I")
+    field(FTL,  "USHORT")
+
+    # Output
+    field(OUTA, "$(P)Start-I PP")
+    field(FTVA, "USHORT")
+    field(OUTB, "$(P)Stop-I PP")
+    field(FTVB, "USHORT")
+    field(OUTC, "$(DN_SER0)Index-I PP")
+    field(FTVC, "USHORT")
+    field(OUTD, "$(P)IsRunning-O PP")
+    field(FTVD, "USHORT")
+    field(OUTE, "$(P)StartedAt-O PP")
+    field(FTVE, "UINT64")
+    field(OUTF, "$(P)MissedPID-I PP")
+    field(FTVF, "USHORT")
+    field(OUTG, "$(P)LoadSeq_ PP")
+    field(FTVG, "USHORT")
+    field(OUTH, "$(DN_SER0)Enable-I PP")
+    field(FTVH, "USHORT")
+}

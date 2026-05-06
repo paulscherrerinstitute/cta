@@ -23,95 +23,63 @@
 #   AUTORST_TIME -> Time to wait before resetting the max value after start up
 
 record(ai, "$(P)Seq$(SEQNUM)PerfStart-Cmd"){
-
   field(DESC, "Take start time")
-
   field(DTYP, "Soft Timestamp")
-
   field(PREC, "9" )
 }
 
 record(ai, "$(P)Seq$(SEQNUM)PerfStop-Cmd"){
-
   field(DESC, "Take stop time")
-
   field(DTYP, "Soft Timestamp")
-
   field(PREC, "9" )
-
   field(FLNK, "$(P)Seq$(SEQNUM)PerfTime-O")
 }
 
 record(calc, "$(P)Seq$(SEQNUM)PerfTime-O"){
-
   field(DESC, "Measured time of last cycle")
-
   field(INPA, "$(P)Seq$(SEQNUM)PerfStart-Cmd")
   field(INPB, "$(P)Seq$(SEQNUM)PerfStop-Cmd")
-
   field(CALC, "(B-A)*1000")
-
   field(EGU,  "ms")
   field(PREC, "2" )
-
   field(FLNK, "$(P)Seq$(SEQNUM)PerfMax-O")
 }
 
 record(calc, "$(P)Seq$(SEQNUM)PerfMax-O"){
-
   field(DESC, "Maximum of measured times")
-
   field(INPA, "$(P)Seq$(SEQNUM)PerfTime-O")
-
   field(CALC, "A>VAL?A:VAL")
-
   field(EGU,  "ms")
   field(PREC, "2" )
 }
 
 record(ao, "$(P)Seq$(SEQNUM)PerfMaxRst-Cmd"){
-
   field(DESC,"Reset max value (sequence $(SEQNUM))")
-
   field(VAL,  "0")
-
   field(OUT,  "$(P)Seq$(SEQNUM)PerfMax-O")
-
   field(FLNK, "$(P)Seq$(SEQNUM)PerfMaxRstTs-O")
 }
 
 record(stringin, "$(P)Seq$(SEQNUM)PerfMaxRstTs-O"){
-
   field(DESC,"Timestamp of last reset")
-
   field(DTYP,"Soft Timestamp" )
-
   field(PINI, "YES")
-
   field(INP, "@%Y-%m-%d %H:%M:%S")
 }
 
 record(calcout, "$(P)Seq$(SEQNUM)PerfAutoRst1_"){
-
   field(DESC, "Automatically reset max value")
-
   field(SCAN, "1 second")
   field(DISV, "1")
-
   field(INPA, "$(AUTORST_TIME=60)")
   field(INPB, "0")
-
   field(CALC, "B >= A ? 1 : 0; B := B + 1" )
-
   field(OOPT, "Transition To Non-zero")
   field(OUT, "$(P)Seq$(SEQNUM)PerfAutoRst2_ PP")
 }
 
 record(dfanout, "$(P)Seq$(SEQNUM)PerfAutoRst2_"){
-
   field(DESC, "Reset max value and disable auto reset")
-
   field(OUTA, "$(P)Seq$(SEQNUM)PerfMaxRst-Cmd.PROC")
   field(OUTB, "$(P)Seq$(SEQNUM)PerfAutoRst1_.DISA")
 }
-

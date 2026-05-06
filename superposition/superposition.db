@@ -12,15 +12,11 @@
 record(calcout, "$(NAME)") {
   field(INPA, "$(IN1)")
   field(INPB, "$(IN2)")
-
   field(CALC, "A || B")
-
   field(OOPT, "Every Time")
   field(DOPT, "Use CALC")
   field(OUT, "$(OUT)")
-
   field(FLNK, "$(LNK)")
-
   field(TPRO, "$(TRA=0)")
 }
 

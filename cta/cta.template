@@ -7,7 +7,7 @@
 #
 # optional macros
 # ---------------
-# LEN -> max length of series (default=2048)
+# LEN -> max length of series (default=32768)
 # TR -> enable(1)/disable(0) record tracing (default=0)
 
 # cta -------------------------------------------------------------------------
@@ -15,7 +15,7 @@
 # cta.db provided the records to glue all the elements together.
 
 file cta.db {
-  {P="$(DN):", LENGTH="$(LEN=2048)", SOS1_FWD_HOOK="$(DN):Seq1PerfStart-Cmd", SOS2_FWD_HOOK="$(DN):Seq2PerfStart-Cmd"}
+  {P="$(DN):", LENGTH="$(LEN=32768)", SOS1_FWD_HOOK="$(DN):Seq1PerfStart-Cmd", SOS2_FWD_HOOK="$(DN):Seq2PerfStart-Cmd", FLOAD="seq0Ser0-Load-I"}
 }
 
 # performance -----------------------------------------------------------------
@@ -35,33 +35,33 @@ file performance.db {
 ## sequence 0 --------------------------
 file seqCtrl.db {
   pattern
-  {P,                 FLOAD,                   FINDEX,      PULSE_ID_READ}
-  {"$(DN):seq0Ctrl-", "$(DN):seq0Ser0-Load-I", "$(DN):Drv", "$(PIR)"}
+  {P,                 DN_SER0,           FLOAD,                   PIR,      LENGTH         }
+  {"$(DN):seq0Ctrl-", "$(DN):seq0Ser0-", "$(DN):seq0Ser0-Load-I", "$(PIR)", "$(LEN=32768)" }
 }
 
 file series.db {
   pattern
   {P,                 LENGTH,        FINDEX,                       FLOAD,                    FENABLE}
-  {"$(DN):seq0Ser0",  "$(LEN=2048)", "$(DN):seq0Ser1-Index-I PP",  "$(DN):seq0Ser1-Load-I",  "$(DN):seq0Ser1-Enable-I PP"}
-  {"$(DN):seq0Ser1",  "$(LEN=2048)", "$(DN):seq0Ser2-Index-I PP",  "$(DN):seq0Ser2-Load-I",  "$(DN):seq0Ser2-Enable-I PP"}
-  {"$(DN):seq0Ser2",  "$(LEN=2048)", "$(DN):seq0Ser3-Index-I PP",  "$(DN):seq0Ser3-Load-I",  "$(DN):seq0Ser3-Enable-I PP"}
-  {"$(DN):seq0Ser3",  "$(LEN=2048)", "$(DN):seq0Ser4-Index-I PP",  "$(DN):seq0Ser4-Load-I",  "$(DN):seq0Ser4-Enable-I PP"}
-  {"$(DN):seq0Ser4",  "$(LEN=2048)", "$(DN):seq0Ser5-Index-I PP",  "$(DN):seq0Ser5-Load-I",  "$(DN):seq0Ser5-Enable-I PP"}
-  {"$(DN):seq0Ser5",  "$(LEN=2048)", "$(DN):seq0Ser6-Index-I PP",  "$(DN):seq0Ser6-Load-I",  "$(DN):seq0Ser6-Enable-I PP"}
-  {"$(DN):seq0Ser6",  "$(LEN=2048)", "$(DN):seq0Ser7-Index-I PP",  "$(DN):seq0Ser7-Load-I",  "$(DN):seq0Ser7-Enable-I PP"}
-  {"$(DN):seq0Ser7",  "$(LEN=2048)", "$(DN):seq0Ser8-Index-I PP",  "$(DN):seq0Ser8-Load-I",  "$(DN):seq0Ser8-Enable-I PP"}
-  {"$(DN):seq0Ser8",  "$(LEN=2048)", "$(DN):seq0Ser9-Index-I PP",  "$(DN):seq0Ser9-Load-I",  "$(DN):seq0Ser9-Enable-I PP"}
-  {"$(DN):seq0Ser9",  "$(LEN=2048)", "$(DN):seq0Ser10-Index-I PP", "$(DN):seq0Ser10-Load-I", "$(DN):seq0Ser10-Enable-I PP"}
-  {"$(DN):seq0Ser10", "$(LEN=2048)", "$(DN):seq0Ser11-Index-I PP", "$(DN):seq0Ser11-Load-I", "$(DN):seq0Ser11-Enable-I PP"}
-  {"$(DN):seq0Ser11", "$(LEN=2048)", "$(DN):seq0Ser12-Index-I PP", "$(DN):seq0Ser12-Load-I", "$(DN):seq0Ser12-Enable-I PP"}
-  {"$(DN):seq0Ser12", "$(LEN=2048)", "$(DN):seq0Ser13-Index-I PP", "$(DN):seq0Ser13-Load-I", "$(DN):seq0Ser13-Enable-I PP"}
-  {"$(DN):seq0Ser13", "$(LEN=2048)", "$(DN):seq0Ser14-Index-I PP", "$(DN):seq0Ser14-Load-I", "$(DN):seq0Ser14-Enable-I PP"}
-  {"$(DN):seq0Ser14", "$(LEN=2048)", "$(DN):seq0Ser15-Index-I PP", "$(DN):seq0Ser15-Load-I", "$(DN):seq0Ser15-Enable-I PP"}
-  {"$(DN):seq0Ser15", "$(LEN=2048)", "$(DN):seq0Ser16-Index-I PP", "$(DN):seq0Ser16-Load-I", "$(DN):seq0Ser16-Enable-I PP"}
-  {"$(DN):seq0Ser16", "$(LEN=2048)", "$(DN):seq0Ser17-Index-I PP", "$(DN):seq0Ser17-Load-I", "$(DN):seq0Ser17-Enable-I PP"}
-  {"$(DN):seq0Ser17", "$(LEN=2048)", "$(DN):seq0Ser18-Index-I PP", "$(DN):seq0Ser18-Load-I", "$(DN):seq0Ser18-Enable-I PP"}
-  {"$(DN):seq0Ser18", "$(LEN=2048)", "$(DN):seq0Ser19-Index-I PP", "$(DN):seq0Ser19-Load-I", "$(DN):seq0Ser19-Enable-I PP"}
-  {"$(DN):seq0Ser19", "$(LEN=2048)", "",                          "",                      ""                          }
+  {"$(DN):seq0Ser0",  "$(LEN=32768)", "$(DN):seq0Ser1-Index-I PP",  "$(DN):seq0Ser1-Load-I",  "$(DN):seq0Ser1-Enable-I PP"}
+  {"$(DN):seq0Ser1",  "$(LEN=32768)", "$(DN):seq0Ser2-Index-I PP",  "$(DN):seq0Ser2-Load-I",  "$(DN):seq0Ser2-Enable-I PP"}
+  {"$(DN):seq0Ser2",  "$(LEN=32768)", "$(DN):seq0Ser3-Index-I PP",  "$(DN):seq0Ser3-Load-I",  "$(DN):seq0Ser3-Enable-I PP"}
+  {"$(DN):seq0Ser3",  "$(LEN=32768)", "$(DN):seq0Ser4-Index-I PP",  "$(DN):seq0Ser4-Load-I",  "$(DN):seq0Ser4-Enable-I PP"}
+  {"$(DN):seq0Ser4",  "$(LEN=32768)", "$(DN):seq0Ser5-Index-I PP",  "$(DN):seq0Ser5-Load-I",  "$(DN):seq0Ser5-Enable-I PP"}
+  {"$(DN):seq0Ser5",  "$(LEN=32768)", "$(DN):seq0Ser6-Index-I PP",  "$(DN):seq0Ser6-Load-I",  "$(DN):seq0Ser6-Enable-I PP"}
+  {"$(DN):seq0Ser6",  "$(LEN=32768)", "$(DN):seq0Ser7-Index-I PP",  "$(DN):seq0Ser7-Load-I",  "$(DN):seq0Ser7-Enable-I PP"}
+  {"$(DN):seq0Ser7",  "$(LEN=32768)", "$(DN):seq0Ser8-Index-I PP",  "$(DN):seq0Ser8-Load-I",  "$(DN):seq0Ser8-Enable-I PP"}
+  {"$(DN):seq0Ser8",  "$(LEN=32768)", "$(DN):seq0Ser9-Index-I PP",  "$(DN):seq0Ser9-Load-I",  "$(DN):seq0Ser9-Enable-I PP"}
+  {"$(DN):seq0Ser9",  "$(LEN=32768)", "$(DN):seq0Ser10-Index-I PP", "$(DN):seq0Ser10-Load-I", "$(DN):seq0Ser10-Enable-I PP"}
+  {"$(DN):seq0Ser10", "$(LEN=32768)", "$(DN):seq0Ser11-Index-I PP", "$(DN):seq0Ser11-Load-I", "$(DN):seq0Ser11-Enable-I PP"}
+  {"$(DN):seq0Ser11", "$(LEN=32768)", "$(DN):seq0Ser12-Index-I PP", "$(DN):seq0Ser12-Load-I", "$(DN):seq0Ser12-Enable-I PP"}
+  {"$(DN):seq0Ser12", "$(LEN=32768)", "$(DN):seq0Ser13-Index-I PP", "$(DN):seq0Ser13-Load-I", "$(DN):seq0Ser13-Enable-I PP"}
+  {"$(DN):seq0Ser13", "$(LEN=32768)", "$(DN):seq0Ser14-Index-I PP", "$(DN):seq0Ser14-Load-I", "$(DN):seq0Ser14-Enable-I PP"}
+  {"$(DN):seq0Ser14", "$(LEN=32768)", "$(DN):seq0Ser15-Index-I PP", "$(DN):seq0Ser15-Load-I", "$(DN):seq0Ser15-Enable-I PP"}
+  {"$(DN):seq0Ser15", "$(LEN=32768)", "$(DN):seq0Ser16-Index-I PP", "$(DN):seq0Ser16-Load-I", "$(DN):seq0Ser16-Enable-I PP"}
+  {"$(DN):seq0Ser16", "$(LEN=32768)", "$(DN):seq0Ser17-Index-I PP", "$(DN):seq0Ser17-Load-I", "$(DN):seq0Ser17-Enable-I PP"}
+  {"$(DN):seq0Ser17", "$(LEN=32768)", "$(DN):seq0Ser18-Index-I PP", "$(DN):seq0Ser18-Load-I", "$(DN):seq0Ser18-Enable-I PP"}
+  {"$(DN):seq0Ser18", "$(LEN=32768)", "$(DN):seq0Ser19-Index-I PP", "$(DN):seq0Ser19-Load-I", "$(DN):seq0Ser19-Enable-I PP"}
+  {"$(DN):seq0Ser19", "$(LEN=32768)", "",                          "",                      ""                          }
 }
 
 # superposition ---------------------------------------------------------------

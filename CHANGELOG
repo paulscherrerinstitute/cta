@@ -1,3 +1,12 @@
+1.0.6 2026-05-01
+  - Updates README about EPICS7 upgrade issue:
+      - Describes that the non-deterministic behaviour issue was caused by the EOS 
+        upgrade. But as originally suspected, the root cause is the scheduler's 
+        ownership problem.
+      - Reports this version as tested and functional.
+      - EOS has been rolled back to an older version, compatible with EPICS7.  
+      - Adds technical debt.
+
 1.0.5 2025-19-12
   - EPICS 7 upgrade
   - TEMPORARY VERSION

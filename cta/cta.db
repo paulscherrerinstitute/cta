@@ -11,116 +11,31 @@
 #  TRA -> enable (1) or disable (0) processing tracing
 
 record(bi, "$(P)SOS1") {
-
   field(DTYP, "EVG START OF SEQ")
-  field(INP, "#C0 S1 @$(DEVICE)")
-
+  field(INP,  "#C0 S1 @$(DEVICE)")
   field(SCAN, "I/O Intr")
-
   field(PRIO, "HIGH")
-
   field(FLNK, "$(P)SOS1Hook_")
-
   field(TPRO, "$(TRA=0)")
 }
 
 record(fanout, "$(P)SOS1Hook_") {
-
-  field(LNK1, "$(SOS1_FWD_HOOK=)")
-  field(LNK2, "$(P)CurrSeq")
+  field(LNK1, "$(P)supSer0_0")
+  field(LNK2, "$(P)seq0Ctrl-SeqCtrl_")
+  field(LNK3, "$(EOS):Seq1-Do-I")
 }
 
 record(bi, "$(P)SOS2") {
-
   field(DTYP, "EVG START OF SEQ")
-  field(INP, "#C0 S2 @$(DEVICE)")
-
+  field(INP,  "#C0 S2 @$(DEVICE)")
   field(SCAN, "I/O Intr")
-
   field(PRIO, "HIGH")
-
   field(FLNK, "$(P)SOS2Hook_")
-
   field(TPRO, "$(TRA=0)")
 }
 
 record(fanout, "$(P)SOS2Hook_") {
-
-  field(LNK1, "$(SOS2_FWD_HOOK=)")
-  field(LNK2, "$(P)CurrSeq")
+  field(LNK1, "$(P)supSer0_0")
+  field(LNK2, "$(P)seq0Ctrl-SeqCtrl_")
+  field(LNK3, "$(EOS):Seq2-Do-I")
 }
-
-record(calc, "$(P)CurrSeq") {
-
-  field(INPA, "$(P)SOS1.PACT")
-  
-  field(CALC, "A ? 1 : 2")
-
-  field(FLNK, "$(P)seq0Ctrl-SOS-I")
-
-  field(TPRO, "$(TRA=0)")
-}
-
-record(fanout, "$(P)Drv") {
-
-  field(LNK1, "$(P)DrvSeq0")
-  field(LNK2, "$(P)DrvSeq1")
-  field(LNK3, "$(P)supSer0_0")
-  field(LNK4, "$(P)Seq1Trig")
-  field(LNK5, "$(P)Seq2Trig")
-
-  field(TPRO, "$(TRA=0)")
-}
-
-record(dfanout, "$(P)DrvSeq0") {
-
-  field(OMSL, "closed_loop")
-
-  field(DOL, "$(P)seq0Ctrl-IsEnabled-O PP")
-
-  field(OUTA, "$(P)seq0Ser0-Enable-I PP")
-
-  field(TPRO, "$(TRA=0)")
-}
-
-record(dfanout, "$(P)DrvSeq1") {
-
-  field(OMSL, "closed_loop")
-
-  field(DOL, "$(P)seq0Ctrl-Index-O PP")
-
-  field(OUTA, "$(P)seq0Ser0-Index-I PP")
-
-  field(TPRO, "$(TRA=0)")
-}
-
-record(fanout, "$(P)Seq1Trig") {
-
-  field(DISV, "2")
-  field(SDIS, "$(P)CurrSeq")
-
-  field(LNK1, "$(EOS):Seq1-Do-I")
-
-  field(TPRO, "$(TRA=0)")
-}
-
-record(fanout, "$(P)Seq2Trig") {
-
-  field(DISV, "1")
-  field(SDIS, "$(P)CurrSeq")
-
-  field(LNK1, "$(EOS):Seq2-Do-I")
-
-  field(TPRO, "$(TRA=0)")
-}
-
-record(longin, "$(P)SerMaxLen-O") {
-
-  field(PINI, "YES")
-
-  field(INP, "$(LENGTH)")
-
-  field(TPRO, "$(TRA=0)")
-
-}
-
