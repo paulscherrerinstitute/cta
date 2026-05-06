@@ -13,10 +13,12 @@ typedef enum {
 } state_t;
 
 /* static variables */
-static                    state_t state = IDLE;
 static unsigned long long last_pid      = 0;
  
 long cta_state_machine(aSubRecord* prec) {
+
+	unsigned short next_index=0;
+	state_t state;
 
 	// Inputs
 	unsigned short start          = *(unsigned short*)     prec->a;
@@ -50,6 +52,19 @@ long cta_state_machine(aSubRecord* prec) {
 	out_load_seq   = (unsigned short*)     prec->valg;
 	out_enable_evt = (unsigned short*)     prec->valh;
 
+	// Initialize ALL outputs
+	*out_start       = start;
+	*out_stop        = stop;
+	*out_index       = index;
+	*out_running     = running;
+	*out_started_at  = started_at;
+	*out_missed_pid  = missed_pid;
+	*out_load_seq    = 0;
+	*out_enable_evt  = 0;
+
+	if(length == 0)
+		return 0;
+
 	// State update
 	if(stop)         state = STOPPED;
 	else if(start)   state = STARTED;
@@ -72,17 +87,34 @@ long cta_state_machine(aSubRecord* prec) {
 			*out_started_at=pid;            // update starting pid
 			break;
 		case RUNNING:
-			*out_load_seq=0;    		// disable load sequence flag
-			*out_index=++index; 		// increment index
-			if(index == length) {
-				*out_stop=1;
-				*out_enable_evt=0;
-			}
-			else {
-				*out_enable_evt=1;
-			}
-			if(last_pid == pid)
-				++*out_missed_pid;
+			next_index = index + 1;
+    			*out_load_seq = 0;
+
+    			// stop BEFORE invalid index
+    			if(next_index >= length) {
+				state=STOPPED;
+        			*out_stop       = 1;
+        			*out_running    = 0;
+        			*out_enable_evt = 0;
+
+        			// keep last VALID index
+        			if(length > 0)
+            				*out_index = length - 1;
+        			else
+            				*out_index = 0;
+    			}
+    			else {
+			
+        			*out_index      = next_index;
+        			*out_enable_evt = 1;
+    			}
+
+    			if(last_pid == pid)
+        			*out_missed_pid = missed_pid + 1;
+
+    			break;
+		case IDLE:
+		default:
 			break;
 	}
 	last_pid=pid;
