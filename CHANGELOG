@@ -1,3 +1,10 @@
+2.0.0 2026-07-05
+  - Refactor:
+      - remove completely QP/C due to issue mentioned in 1.0.6
+      - rewrite state machine based on aSub record and processing chain
+      - temporary version - missing run mode, run offset, and run divisor
+      - warning show up at build. Because of unused variables. They were already added for the missing feature.
+
 1.0.6 2026-05-01
   - Updates README about EPICS7 upgrade issue:
       - Describes that the non-deterministic behaviour issue was caused by the EOS 
