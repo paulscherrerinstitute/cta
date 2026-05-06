@@ -97,7 +97,7 @@ record(longin, "$(P)IsRunning-O") {
 }
 
 ### Pulse ID at start of sequence  
-record(ai, "$(P)StartedAt-O") {
+record(int64in, "$(P)StartedAt-O") {
     field(PRIO, "HIGH")
 }
 
@@ -120,7 +120,7 @@ record(aSub, "$(P)SeqCtrl_") {
     field(INPE, "$(PIR)")
     field(FTE,  "UINT64")
     field(INPF, "$(P)StartedAt-O")
-    field(FTF,  "USHORT")
+    field(FTF,  "UINT64")
     field(INPG, "$(P)MissedPID-I")
     field(FTG,  "USHORT")
     field(INPH, "$(P)Length-I")
@@ -144,7 +144,7 @@ record(aSub, "$(P)SeqCtrl_") {
     field(OUTD, "$(P)IsRunning-O PP")
     field(FTVD, "USHORT")
     field(OUTE, "$(P)StartedAt-O PP")
-    field(FTVE, "USHORT")
+    field(FTVE, "UINT64")
     field(OUTF, "$(P)MissedPID-I PP")
     field(FTVF, "USHORT")
     field(OUTG, "$(P)LoadSeq_ PP")
