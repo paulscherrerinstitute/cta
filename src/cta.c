@@ -91,7 +91,7 @@ long cta_state_machine(aSubRecord* prec) {
 			++index;
 			*out_index        = index;
 			*out_index_global = index;
-                        // CTA sequence end
+			// CTA sequence end
 			if(index >= length) {
 				// Manages cycles
 				// 0 = forever | >0 = nb cycles
