@@ -34,7 +34,7 @@ long cta_state_machine(aSubRecord* prec) {
 	epicsUInt32 cfgModOff      = *(epicsUInt32*) prec->k;
 	epicsUInt16 loadSeqPending = *(epicsUInt16*) prec->l;
       
-        // Outputs
+	// Outputs
 	epicsUInt16 *out_start;
 	epicsUInt16 *out_stop;
 	epicsUInt32 *out_index;
@@ -89,29 +89,29 @@ long cta_state_machine(aSubRecord* prec) {
 
 		case RUNNING:
 			++index;
-        		*out_index        = index;
-        		*out_index_global = index;
-			// CTA sequence end
-    			if(index >= length) {
+			*out_index        = index;
+			*out_index_global = index;
+                        // CTA sequence end
+			if(index >= length) {
 				// Manages cycles
 				// 0 = forever | >0 = nb cycles
 				++cycles_cnt;
 				if(cycles && cycles_cnt >= cycles) {
 					state           = STOPPED;
-        				*out_stop       = 1;
-        				*out_running    = 0;
-        				*out_enable_evt = 0;
+					*out_stop       = 1;
+					*out_running    = 0;
+					*out_enable_evt = 0;
 				}
 				else {
 					*out_index = 0;
-        				*out_enable_evt = 1;
+					*out_enable_evt = 1;
 				}
-    			}
-    			else 
-        			*out_enable_evt = 1;
+			}
+			else 
+				*out_enable_evt = 1;
 			if(last_state == STARTED) 
 				*out_started_at = pid;     // update starting pid
-    			break;
+			break;
 
 		case STARTED:
 			// Manages configuration mode 
