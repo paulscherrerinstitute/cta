@@ -7,14 +7,16 @@
 /* Define states */
 typedef enum {
 	IDLE=0,
+	ARMED,
 	RUNNING,
 	STARTED,
 	STOPPED
 } state_t;
 
-long cta_state_machine(aSubRecord* prec) {
+static unsigned long long last_pid = 0;
+static state_t  state = 0;
 
-	state_t state;
+long cta_state_machine(aSubRecord* prec) {
 
 	// Inputs
 	epicsUInt16 start          = *(epicsUInt16*) prec->a;
@@ -62,24 +64,18 @@ long cta_state_machine(aSubRecord* prec) {
 		return 0;
 
 	// State update
-	if(stop)         state = STOPPED;
-	else if(start)   state = STARTED;
-	else if(running) state = RUNNING;
-	else             state = IDLE; 
+	if(stop)                         state = STOPPED;
+	else if(start && state == ARMED) state = STARTED;
+	else if(running)                 state = RUNNING;
+	else if(state != ARMED)          state = IDLE;
 
 	// State machine 
 	switch(state) {
 		case STOPPED: 
-			*out_enable_evt=0;  		 // disable events
-			*out_running=0;     		 // update status 'running'
-			*out_index=0;      		 // reset index
-			*out_stop=0;        		 // reset stop button
-			break;
-		case STARTED:
-			*out_enable_evt=1;  		 // enable events
-			*out_running=1;     		 // update status 'running'
-			*out_start=0;       		 // reset start button
-			*out_started_at=pid;             // update starting pid
+			*out_enable_evt=0;                 // disable events
+			*out_running=0;                    // update status 'running'
+			*out_index=0;                      // reset index
+			*out_stop=0;                       // reset stop button
 			break;
 		case RUNNING:
 			++index;
@@ -95,11 +91,26 @@ long cta_state_machine(aSubRecord* prec) {
     			}
 
     			break;
+		case STARTED:
+			*out_enable_evt = 1;               // enable events
+			*out_running    = 1;               // update status 'running'
+			*out_start      = 0;               // reset start button
+			*out_started_at = pid;             // update starting pid
+			break;
+		case ARMED:
 		case IDLE:
+			/* Sequence update */
 			if(loadSeqPending){
-				*out_load_seq=1; 	 // load sequence flag
-				*out_load_seq_pending=0; // reset load seq pending flag
+				*out_load_seq         = 1; // load sequence flag
+				*out_load_seq_pending = 0; // reset load seq pending flag
 			}
+			/* Pulse ID synchronisation */
+			if(pid == last_pid+1)
+				state = ARMED;
+			else 
+				state = IDLE;
+			last_pid = pid;
+			break;
 		default:
 			break;
 	}
