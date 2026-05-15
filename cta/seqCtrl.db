@@ -109,6 +109,7 @@ record(int64in, "$(P)StartedAt-O") {
 
 record(aSub, "$(P)SeqCtrl_") {
     field(SNAM, "cta_state_machine")
+    field(PRIO, "HIGH")
 
     # Input
     field(INPA, "$(P)Start-I")
@@ -143,14 +144,16 @@ record(aSub, "$(P)SeqCtrl_") {
     field(FTVB, "USHORT")
     field(OUTC, "$(DN_SER0)Index-I PP")
     field(FTVC, "ULONG")
-    field(OUTD, "$(P)IsRunning-O PP")
+    field(OUTD, "$(P)Index-O PP")
     field(FTVD, "ULONG")
-    field(OUTE, "$(P)StartedAt-O PP")
-    field(FTVE, "UINT64")
-    field(OUTF, "$(P)LoadSeq_ PP")
-    field(FTVF, "USHORT")
-    field(OUTG, "$(P)LoadSeqPending-I NPP")
-    field(FTVG,  "USHORT")
-    field(OUTH, "$(DN_SER0)Enable-I PP")
-    field(FTVH, "USHORT")
+    field(OUTE, "$(P)IsRunning-O PP")
+    field(FTVE, "ULONG")
+    field(OUTF, "$(P)StartedAt-O PP")
+    field(FTVF, "UINT64")
+    field(OUTG, "$(P)LoadSeq_ PP")
+    field(FTVG, "USHORT")
+    field(OUTH, "$(P)LoadSeqPending-I NPP")
+    field(FTVH,  "USHORT")
+    field(OUTI, "$(DN_SER0)Enable-I PP")
+    field(FTVI, "USHORT")
 }

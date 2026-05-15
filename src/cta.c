@@ -36,6 +36,7 @@ long cta_state_machine(aSubRecord* prec) {
 	epicsUInt16 *out_start;
 	epicsUInt16 *out_stop;
 	epicsUInt32 *out_index;
+	epicsUInt32 *out_index_global;
 	epicsUInt32 *out_running;
 	epicsUInt64 *out_started_at;
 	epicsUInt16 *out_load_seq;
@@ -44,16 +45,18 @@ long cta_state_machine(aSubRecord* prec) {
 	out_start            = (epicsUInt16*) prec->vala;
 	out_stop             = (epicsUInt16*) prec->valb;
 	out_index            = (epicsUInt32*) prec->valc;
-	out_running          = (epicsUInt32*) prec->vald;
-	out_started_at       = (epicsUInt64*) prec->vale;
-	out_load_seq         = (epicsUInt16*) prec->valf;
-	out_load_seq_pending = (epicsUInt16*) prec->valg;
-	out_enable_evt       = (epicsUInt16*) prec->valh;
+	out_index_global     = (epicsUInt32*) prec->vald;
+	out_running          = (epicsUInt32*) prec->vale;
+	out_started_at       = (epicsUInt64*) prec->valf;
+	out_load_seq         = (epicsUInt16*) prec->valg;
+	out_load_seq_pending = (epicsUInt16*) prec->valh;
+	out_enable_evt       = (epicsUInt16*) prec->vali;
 
 	// Initialize ALL outputs
 	*out_start            = start;
 	*out_stop             = stop;
 	*out_index            = index;
+	*out_index_global     = index;
 	*out_running          = running;
 	*out_started_at       = started_at;
 	*out_load_seq         = 0;
@@ -72,14 +75,16 @@ long cta_state_machine(aSubRecord* prec) {
 	// State machine 
 	switch(state) {
 		case STOPPED: 
-			*out_enable_evt=0;                 // disable events
-			*out_running=0;                    // update status 'running'
-			*out_index=0;                      // reset index
-			*out_stop=0;                       // reset stop button
+			*out_enable_evt   = 0;             // disable events
+			*out_running      = 0;             // update status 'running'
+			*out_index        = 0;             // reset index
+			*out_index_global = 0;             // reset index
+			*out_stop         = 0;             // reset stop button
 			break;
 		case RUNNING:
 			++index;
-        		*out_index = index;
+        		*out_index        = index;
+        		*out_index_global = index;
     			if(index >= length) {
 				state=STOPPED;
         			*out_stop       = 1;
