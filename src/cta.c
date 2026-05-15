@@ -74,6 +74,7 @@ long cta_state_machine(aSubRecord* prec) {
 
 	// State machine 
 	switch(state) {
+
 		case STOPPED: 
 			*out_enable_evt   = 0;             // disable events
 			*out_running      = 0;             // update status 'running'
@@ -81,6 +82,7 @@ long cta_state_machine(aSubRecord* prec) {
 			*out_index_global = 0;             // reset index
 			*out_stop         = 0;             // reset stop button
 			break;
+
 		case RUNNING:
 			++index;
         		*out_index        = index;
@@ -94,28 +96,31 @@ long cta_state_machine(aSubRecord* prec) {
     			else {
         			*out_enable_evt = 1;
     			}
-
+			*out_started_at = pid;             // update starting pid
     			break;
+
 		case STARTED:
 			*out_enable_evt = 1;               // enable events
 			*out_running    = 1;               // update status 'running'
 			*out_start      = 0;               // reset start button
-			*out_started_at = pid;             // update starting pid
 			break;
+
 		case ARMED:
+
 		case IDLE:
-			/* Sequence update */
+			// Sequence update
 			if(loadSeqPending){
 				*out_load_seq         = 1; // load sequence flag
 				*out_load_seq_pending = 0; // reset load seq pending flag
 			}
-			/* Pulse ID synchronisation */
+			// Pulse ID synchronisation 
 			if(pid == last_pid+1)
 				state = ARMED;
 			else 
 				state = IDLE;
 			last_pid = pid;
 			break;
+
 		default:
 			break;
 	}
