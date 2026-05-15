@@ -13,9 +13,11 @@ typedef enum {
 	STOPPED
 } state_t;
 
-static unsigned long long last_pid = 0;
-static state_t  state      = 0;
-static state_t  last_state = 0;
+/* Static variables */
+static unsigned short     cycles_cnt = 0; // Counter for CTA cycles
+static unsigned long long last_pid   = 0; // Last Pulse ID
+static state_t            state      = 0; // State machine current state
+static state_t            last_state = 0; // State machine last state
 
 long cta_state_machine(aSubRecord* prec) {
 
@@ -82,21 +84,29 @@ long cta_state_machine(aSubRecord* prec) {
 			*out_index        = 0;             // reset index
 			*out_index_global = 0;             // reset index
 			*out_stop         = 0;             // reset stop button
+			cycles_cnt        = 0;             // reset CTA sequenc cycle counter
 			break;
 
 		case RUNNING:
 			++index;
         		*out_index        = index;
         		*out_index_global = index;
+			// CTA sequence end
     			if(index >= length) {
-				state=STOPPED;
-        			*out_stop       = 1;
-        			*out_running    = 0;
-        			*out_enable_evt = 0;
+				++cycles_cnt;
+				if(cycles && cycles_cnt >= cycles) {
+					state           = STOPPED;
+        				*out_stop       = 1;
+        				*out_running    = 0;
+        				*out_enable_evt = 0;
+				}
+				else {
+					*out_index = 0;
+        				*out_enable_evt = 1;
+				}
     			}
-    			else {
+    			else 
         			*out_enable_evt = 1;
-    			}
 			if(last_state == STARTED)
 				*out_started_at = pid;     // update starting pid
     			break;
