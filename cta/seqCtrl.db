@@ -21,9 +21,19 @@ record(bo, "$(P)Stop-I") {
 record(longout, "$(P)Length-I") {
     field(PINI, "YES")
     field(DOL, "0")
+    field(FLNK, "$(P)LoadSeqPending_")
+}
+# detect modification of sequence
+record(calcout, "$(P)LoadSeqPending_") {
+    field(CALC, "1")
+    field(OUT, "$(P)LoadSeqPending-I PP")
+}
+record(bo, "$(P)LoadSeqPending-I") {
+    field(DESC, "CTA seq. mpodified, load pending")
 }
 
-record(longin, "$(DN):SerMaxLen-O") {
+### Maximum length of a sequence
+record(longout, "$(DN):SerMaxLen-O") {
     field(VAL, "$(LENGTH)")
 }
 
@@ -61,8 +71,9 @@ record(longout, "$(P)SCfgModOffset-I") {
 # State machine outputs control
 ##################################
 
-### Enable sequence (Data-I changed)
-record(ao, "$(P)LoadSeq_") {
+### Load sequence 
+record(bo, "$(P)LoadSeq_") {
+    field(PINI, "YES")
     field(FLNK, "$(P)LoadSeq__")
 }
 record(calcout, "$(P)LoadSeq__") {
@@ -78,12 +89,12 @@ record(calcout, "$(P)LoadSeq__") {
 ##################################
 
 ### Sequence current index 
-record(longin, "$(P)Index-O") {
+record(longout, "$(P)Index-O") {
     field(PRIO, "HIGH")
 }
 
 ### Sequence running state
-record(longin, "$(P)IsRunning-O") {
+record(longout, "$(P)IsRunning-O") {
     field(PRIO, "HIGH")
 }
 
@@ -105,23 +116,25 @@ record(aSub, "$(P)SeqCtrl_") {
     field(INPB, "$(P)Stop-I")
     field(FTB,  "USHORT")
     field(INPC, "$(DN_SER0)Index-I")
-    field(FTC,  "USHORT")
+    field(FTC,  "ULONG")
     field(INPD, "$(P)IsRunning-O")
-    field(FTD,  "USHORT")
+    field(FTD,  "ULONG")
     field(INPE, "$(PIR)")
     field(FTE,  "UINT64")
     field(INPF, "$(P)StartedAt-O")
     field(FTF,  "UINT64")
     field(INPG, "$(P)Length-I")
-    field(FTG,  "USHORT")
+    field(FTG,  "ULONG")
     field(INPH, "$(P)Cycles-I")
-    field(FTH,  "USHORT")
+    field(FTH,  "ULONG")
     field(INPI, "$(P)SCfgMode-I")
-    field(FTI,  "USHORT")
+    field(FTI,  "ULONG")
     field(INPJ, "$(P)SCfgModDivisor-I")
-    field(FTJ,  "USHORT")
+    field(FTJ,  "ULONG")
     field(INPK, "$(P)SCfgModOffset-I")
-    field(FTK,  "USHORT")
+    field(FTK,  "ULONG")
+    field(INPL, "$(P)LoadSeqPending-I")
+    field(FTL,  "USHORT")
 
     # Output
     field(OUTA, "$(P)Start-I PP")
@@ -129,13 +142,15 @@ record(aSub, "$(P)SeqCtrl_") {
     field(OUTB, "$(P)Stop-I PP")
     field(FTVB, "USHORT")
     field(OUTC, "$(DN_SER0)Index-I PP")
-    field(FTVC, "USHORT")
+    field(FTVC, "ULONG")
     field(OUTD, "$(P)IsRunning-O PP")
-    field(FTVD, "USHORT")
+    field(FTVD, "ULONG")
     field(OUTE, "$(P)StartedAt-O PP")
     field(FTVE, "UINT64")
     field(OUTF, "$(P)LoadSeq_ PP")
     field(FTVF, "USHORT")
-    field(OUTG, "$(DN_SER0)Enable-I PP")
-    field(FTVG, "USHORT")
+    field(OUTG, "$(P)LoadSeqPending-I NPP")
+    field(FTVG,  "USHORT")
+    field(OUTH, "$(DN_SER0)Enable-I PP")
+    field(FTVH, "USHORT")
 }
