@@ -97,7 +97,7 @@ long cta_state_machine(aSubRecord* prec) {
     			break;
 		case IDLE:
 			if(loadSeqPending){
-			        errlogPrintf("loadSeqPending = %d\n",loadSeqPending);
+			        errlogPrintf("CTA sequence updated\n",loadSeqPending);
 				*out_load_seq=1; 	 // load sequence flag
 				*out_load_seq_pending=0; // reset load seq pending flag
 			}
