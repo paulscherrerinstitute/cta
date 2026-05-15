@@ -112,29 +112,29 @@ record(aSub, "$(P)SeqCtrl_") {
     field(PRIO, "HIGH")
 
     # Input
-    field(INPA, "$(P)Start-I")
+    field(INPA, "$(P)Start-I")               # CTA sequence start button 
     field(FTA,  "USHORT")
-    field(INPB, "$(P)Stop-I")
+    field(INPB, "$(P)Stop-I")                # CTA sequence stop button 
     field(FTB,  "USHORT")
-    field(INPC, "$(DN_SER0)Index-I")
+    field(INPC, "$(DN_SER0)Index-I")         # CTA sequence index 
     field(FTC,  "ULONG")
-    field(INPD, "$(P)IsRunning-O")
+    field(INPD, "$(P)IsRunning-O")           # CTA sequence running 
     field(FTD,  "ULONG")
-    field(INPE, "$(PIR)")
+    field(INPE, "$(PIR)")                    # Current Pulse ID
     field(FTE,  "UINT64")
-    field(INPF, "$(P)StartedAt-O")
+    field(INPF, "$(P)StartedAt-O")           # Pulse ID at which the sequence started
     field(FTF,  "UINT64")
-    field(INPG, "$(P)Length-I")
+    field(INPG, "$(P)Length-I")              # CTA sequence length
     field(FTG,  "ULONG")
-    field(INPH, "$(P)Cycles-I")
+    field(INPH, "$(P)Cycles-I")              # CTA sequence number of cycles
     field(FTH,  "ULONG")
-    field(INPI, "$(P)SCfgMode-I")
+    field(INPI, "$(P)SCfgMode-I")            # Start sequence configuration - Mode
     field(FTI,  "ULONG")
-    field(INPJ, "$(P)SCfgModDivisor-I")
+    field(INPJ, "$(P)SCfgModDivisor-I")      # Start sequence configuration - Divisor
     field(FTJ,  "ULONG")
-    field(INPK, "$(P)SCfgModOffset-I")
+    field(INPK, "$(P)SCfgModOffset-I")       # Start sequence configuration - Offset
     field(FTK,  "ULONG")
-    field(INPL, "$(P)LoadSeqPending-I")
+    field(INPL, "$(P)LoadSeqPending-I")      # CTA sequence load pending flag
     field(FTL,  "USHORT")
 
     # Output
@@ -142,18 +142,18 @@ record(aSub, "$(P)SeqCtrl_") {
     field(FTVA, "USHORT")
     field(OUTB, "$(P)Stop-I PP")
     field(FTVB, "USHORT")
-    field(OUTC, "$(DN_SER0)Index-I PP")
+    field(OUTC, "$(DN_SER0)Index-I PP")      # Index of Seq0 Ser0, propagated to all series via series.db
     field(FTVC, "ULONG")
-    field(OUTD, "$(P)Index-O PP")
+    field(OUTD, "$(P)Index-O PP")            # Global index for CTA
     field(FTVD, "ULONG")
-    field(OUTE, "$(P)IsRunning-O PP")
+    field(OUTE, "$(P)IsRunning-O PP")        # Running state 
     field(FTVE, "ULONG")
-    field(OUTF, "$(P)StartedAt-O PP")
+    field(OUTF, "$(P)StartedAt-O PP")        # PID when sequence started
     field(FTVF, "UINT64")
-    field(OUTG, "$(P)LoadSeq_ PP")
+    field(OUTG, "$(P)LoadSeq_ PP")           # Record to load CTA sequence
     field(FTVG, "USHORT")
-    field(OUTH, "$(P)LoadSeqPending-I NPP")
+    field(OUTH, "$(P)LoadSeqPending-I NPP")  # CTA sequence load pending flag
     field(FTVH,  "USHORT")
-    field(OUTI, "$(DN_SER0)Enable-I PP")
+    field(OUTI, "$(DN_SER0)Enable-I PP")     # Enable Seq0, Ser0, propagated to all series
     field(FTVI, "USHORT")
 }
