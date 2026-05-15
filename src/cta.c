@@ -13,7 +13,7 @@ typedef enum {
 } state_t;
 
 /* static variables */
-static unsigned long long last_pid      = 0;
+static unsigned long long last_pid = 0;
  
 long cta_state_machine(aSubRecord* prec) {
 
@@ -88,7 +88,6 @@ long cta_state_machine(aSubRecord* prec) {
 			break;
 		case RUNNING:
 			next_index = index + 1;
-    			*out_load_seq = 0;
 
     			// stop BEFORE invalid index
     			if(next_index >= length) {
@@ -108,9 +107,6 @@ long cta_state_machine(aSubRecord* prec) {
         			*out_index      = next_index;
         			*out_enable_evt = 1;
     			}
-
-    			if(last_pid == pid)
-        			*out_missed_pid = missed_pid + 1;
 
     			break;
 		case IDLE:
