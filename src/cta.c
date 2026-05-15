@@ -14,7 +14,8 @@ typedef enum {
 } state_t;
 
 static unsigned long long last_pid = 0;
-static state_t  state = 0;
+static state_t  state      = 0;
+static state_t  last_state = 0;
 
 long cta_state_machine(aSubRecord* prec) {
 
@@ -96,7 +97,8 @@ long cta_state_machine(aSubRecord* prec) {
     			else {
         			*out_enable_evt = 1;
     			}
-			*out_started_at = pid;             // update starting pid
+			if(last_state == STARTED)
+				*out_started_at = pid;     // update starting pid
     			break;
 
 		case STARTED:
@@ -124,5 +126,6 @@ long cta_state_machine(aSubRecord* prec) {
 		default:
 			break;
 	}
+	last_state = state;
 	return 0;
 }
