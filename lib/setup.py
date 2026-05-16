@@ -1,8 +1,8 @@
-from distutils.core import setup
+from setuptools import setup
 
 setup(
     name='cta_lib',
-    version='1.0.1',
+    version='1.0.2',
     packages=['cta_lib'],
     url='https://git.psi.ch/epics_ioc_modules/cta',
     license='',
@@ -10,7 +10,7 @@ setup(
     author_email='',
     description='python library to interact with cta app on IOC',
     long_description='',
-    requires=['pyepics', 'numpy'],
+    install_requires=['pyepics', 'numpy'],
     entry_points={
         'console_scripts': [
             'cta_lib_ex01_upload_download_print = cta_lib.cta_lib_ex01_upload_download_print:main',
