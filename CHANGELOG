@@ -1,3 +1,6 @@
+2.0.2 2026-16-05
+  - Fix bug with GUI, 'equal not equal' flag not updated when sequence is modified via API
+
 2.0.1 2026-16-05
 
   CTA sources :
