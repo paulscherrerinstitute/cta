@@ -1,3 +1,21 @@
+2.0.1 2026-16-05
+
+  CTA sources :
+      - Increase maximum sequence length to 65536 (fixed in GUI too)
+      - Add CTA sequence repetition configuration (forever, n repetition)
+      - Add CTA sequence start configuration (offset and divisor)
+      - Fix missed Pulse ID issue (due to jitter, issue present in V1) by introducing ARMED state.
+
+  CTA Python library, cta_lib : 
+      - Remove deprecated distutils for build, use setuptools
+
+  CTA GUI rebuilt with EPICS7 and Python 3.11 (background compatible) : 
+      - Update from PyQt4 (deprecated) to PyQt5
+      - Fix bug : GUI crashes when opened with empty sequence
+      - Remove obsolete '/opt/gfa/python'
+      - Update script start_cta_gui.sh 
+      - Add --dev flag to run cta_lib locally
+
 2.0.0 2026-07-05
   - Refactor:
       - remove completely QP/C due to issue mentioned in 1.0.6
