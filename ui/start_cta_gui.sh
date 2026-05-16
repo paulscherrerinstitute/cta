@@ -44,7 +44,4 @@ if [ $# -eq 0 ] || [ "$1" = "--help" ] || [ "$1" = "-h" ]; then
 	exec python "$BASEDIR/cta_gui.py" --help
 fi
 
-python -c "import cta_lib; print(cta_lib.__file__)"
-
-
 exec python "$BASEDIR/cta_gui.py" "$@"
