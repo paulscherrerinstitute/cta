@@ -347,14 +347,17 @@ class SequenceTableModel(QAbstractTableModel):
 
         # init sequence
         s = 0
+
         for i in range(len(self.__localEvents)):
-            s += sum(series[i])
+            s += int(series[i][0].sum())
+        
         self.__sequence = [None] * s
         for i in range(s):
             self.__sequence[i] = [None] * 3
 
         # loop over series
         row = 0
+        
         for i in range(len(series[0])):
 
             # loop over local events
@@ -720,7 +723,7 @@ class SequenceDialog(QWidget):
         logging.debug('pv %s has changed, new value=%s', pvname , str(value))
 
         # transform value to list
-        if len(value) > 1:
+        if hasattr(value, "__len__") and len(value) > 1:
             series_ioc = value.tolist()
         else:
             series_ioc = [value]
