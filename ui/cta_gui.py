@@ -1108,14 +1108,33 @@ class SequenceDialog(QWidget):
 if __name__ == '__main__':
     
     # setup parser
-    parser = argparse.ArgumentParser()
-    parser.add_argument('esx', help='Specify experimental station for which '
-        'the CTA GUI shall be started.', choices=['ESA', 'ESB', 'ESC', 'ESD', 'ESE', 'ESF', 'SFTEST'])
-    parser.add_argument('device', help='Name of device running CTA.')
-    parser.add_argument('-l', '--loglevel', help='Specify level for logging '
-        '(used for debugging)'
-        , choices=['CRITICAL', 'ERROR', 'WARNING', 'INFO', 'DEBUG'],
-        default = 'WARNING')
+    parser = argparse.ArgumentParser(
+            prog='start_cta_gui.sh',
+            description='CTA Graphical interface',
+            formatter_class=argparse.RawTextHelpFormatter
+            )
+    parser.add_argument(
+            'esx', 
+            metavar='ESX',
+            choices=['ESA', 'ESB', 'ESC', 'ESD', 'ESE', 'ESF', 'SFTEST'],
+            help="""Experimental station: ESA, ESB, ESC, ESD, ESE, ESF
+Test stand: SFTEST
+            """
+    )
+
+    parser.add_argument(
+            'device', 
+            help='Name of device running CTA.'
+    )
+    parser.add_argument(
+            '-l', '--loglevel', 
+            metavar='level',
+            choices=['CRITICAL', 'ERROR', 'WARNING', 'INFO', 'DEBUG'],
+            default = 'WARNING',
+            help="""Specify level for logging
+CRITICAL, ERROR, WARNING, INFO, DEBUG
+            """
+    )
     args = parser.parse_args()
 
     # setup logging

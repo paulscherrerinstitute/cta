@@ -1,29 +1,39 @@
 #!/bin/bash
 
-CURRENTDIR=`pwd`
+# Find real absolute path of the python file 
+BASEDIR="$(dirname "$(readlink -f "$0")")"
 
-# Resolve symlinks
-BASEDIR=$0
-while [ -h "$BASEDIR" ]; do
-    ls=`ls -ld "$BASEDIR"`
-    link=`expr "$ls" : '^.*-> \(.*\)$' 2>/dev/null`
-    if expr "$link" : '^/' 2> /dev/null >/dev/null; then
-        BASEDIR="$link"
-    else
-        BASEDIR="`dirname "$BASEDIR"`/$link"
-    fi
-done
-BASEDIR=`dirname "$BASEDIR"`
+DEV_MODE=0
 
-PYTHON_DIR=/opt/gfa/python
-
-if [ ! -f $PYTHON_DIR ]; then
-  echo "ERROR: Unexpected environment."
-  echo "ERROR: File $PYTHON_DIR to load gfa python not found."
-  exit 1
-else
-  source $PYTHON_DIR ""
+if [ "$1" = "--dev" ]; then
+    DEV_MODE=1
+    shift
 fi
 
-python $BASEDIR/cta_gui.py $@
+# Check python installation 
+#----------------------------------------------------
+if ! command -v python >/dev/null 2>&1; then
+    echo "ERROR: Python not found in PATH."
+    echo "Please activate the CTA Python environment first."
+    exit 1
+fi
 
+# Check CTA installation 
+#----------------------------------------------------
+if ! python -c "import cta_lib" >/dev/null 2>&1; then
+    echo "ERROR: CTA Python environment not detected."
+    echo "Please activate an environment providing cta_lib."
+    exit 1
+fi
+
+# Dev mode, PYTHONPATH gives priority to local folder
+#----------------------------------------------------
+if [ "$DEV_MODE" -eq 1 ]; then
+    export PYTHONPATH="$(dirname "$BASEDIR")/lib:$PYTHONPATH"
+fi
+
+if [ $# -eq 0 ]; then
+	exec python "$BASEDIR/cta_gui.py" --help
+fi
+
+exec python "$BASEDIR/cta_gui.py" "$@"
