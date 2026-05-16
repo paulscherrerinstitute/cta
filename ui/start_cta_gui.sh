@@ -19,15 +19,13 @@ fi
 #----------------------------------------------------
 if ! command -v python >/dev/null 2>&1; then
     echo "ERROR: Python not found in PATH."
-    echo "Please activate the CTA Python environment first."
     exit 1
 fi
 
 # Check CTA installation 
 #----------------------------------------------------
-if ! python -c "import cta_lib" >/dev/null 2>&1; then
-    echo "ERROR: CTA Python environment not detected."
-    echo "Please activate an environment providing cta_lib."
+if ! python -c "import cta_lib; import PyQt5" >/dev/null 2>&1; then
+    echo "ERROR: CTA Python environment or PyQt5 not detected."
     exit 1
 fi
 
