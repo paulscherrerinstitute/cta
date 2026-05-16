@@ -8,6 +8,7 @@ source:
 requirements:
     build:
         - python >=3.3
+        - setuptools
     run:
         - python >=3.3
         - pyepics
