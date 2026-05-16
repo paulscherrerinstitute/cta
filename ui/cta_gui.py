@@ -737,12 +737,12 @@ class SequenceDialog(QWidget):
         logging.debug('pv %s has changed, new value=%s', pvname , str(value))
 
         # transform value to list
-        if hasattr(value, "__len__") and len(value) > 1:
-            series_ioc = value.tolist()
+        if hasattr(value, "__len__"):
+            series_ioc = [int(numpy.asarray(x).item()) for x in value] 
         else:
-            series_ioc = [value]
+            series_ioc = [int(numpy.asarray(value).item())]
 
-        self.update_equal_not_equal[object, object, object].emit(SequenceState.CHECK, series_index, series_ioc)
+        self.update_equal_not_equal[object].emit(SequenceState.UNEQUAL)
 
         logging.info('SequenceDialog.__on_pvs_seq_change() is done')
 
