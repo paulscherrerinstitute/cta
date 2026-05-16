@@ -1,7 +1,5 @@
 #!/bin/bash
 
-export EPICS_CA_MAX_ARRAY_BYTES=10000000
-
 # Colors to match python parser
 BLUE="\033[1;34m"
 GREEN="\033[1;32m"
