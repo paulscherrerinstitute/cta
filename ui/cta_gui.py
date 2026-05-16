@@ -509,46 +509,106 @@ class SequenceDialog(QWidget):
         self.pvLength = PV(args.device + ':seq0Ctrl-Length-I')
         self.pvCycles = PV(args.device + ':seq0Ctrl-Cycles-I',
                            callback=self.__on_pvs_rep_conf_change)
-        self.pvSeq0Ser0 = PV(args.device + ':seq0Ser0-Data-I',
-                             callback=self.__on_pvs_seq_change)
-        self.pvSeq0Ser1 = PV(args.device + ':seq0Ser1-Data-I',
-                             callback=self.__on_pvs_seq_change)
-        self.pvSeq0Ser2 = PV(args.device + ':seq0Ser2-Data-I',
-                             callback=self.__on_pvs_seq_change)
-        self.pvSeq0Ser3 = PV(args.device + ':seq0Ser3-Data-I',
-                             callback=self.__on_pvs_seq_change)
-        self.pvSeq0Ser4 = PV(args.device + ':seq0Ser4-Data-I',
-                             callback=self.__on_pvs_seq_change)
-        self.pvSeq0Ser5 = PV(args.device + ':seq0Ser5-Data-I',
-                             callback=self.__on_pvs_seq_change)
-        self.pvSeq0Ser6 = PV(args.device + ':seq0Ser6-Data-I',
-                             callback=self.__on_pvs_seq_change)
-        self.pvSeq0Ser7 = PV(args.device + ':seq0Ser7-Data-I',
-                             callback=self.__on_pvs_seq_change)
-        self.pvSeq0Ser8 = PV(args.device + ':seq0Ser8-Data-I',
-                             callback=self.__on_pvs_seq_change)
-        self.pvSeq0Ser9 = PV(args.device + ':seq0Ser9-Data-I',
-                             callback=self.__on_pvs_seq_change)
-        self.pvSeq0Ser10 = PV(args.device + ':seq0Ser10-Data-I',
-                              callback=self.__on_pvs_seq_change)
-        self.pvSeq0Ser11 = PV(args.device + ':seq0Ser11-Data-I',
-                              callback=self.__on_pvs_seq_change)
-        self.pvSeq0Ser12 = PV(args.device + ':seq0Ser12-Data-I',
-                              callback=self.__on_pvs_seq_change)
-        self.pvSeq0Ser13 = PV(args.device + ':seq0Ser13-Data-I',
-                              callback=self.__on_pvs_seq_change)
-        self.pvSeq0Ser14 = PV(args.device + ':seq0Ser14-Data-I',
-                              callback=self.__on_pvs_seq_change)
-        self.pvSeq0Ser15 = PV(args.device + ':seq0Ser15-Data-I',
-                              callback=self.__on_pvs_seq_change)
-        self.pvSeq0Ser16 = PV(args.device + ':seq0Ser16-Data-I',
-                              callback=self.__on_pvs_seq_change)
-        self.pvSeq0Ser17 = PV(args.device + ':seq0Ser17-Data-I',
-                              callback=self.__on_pvs_seq_change)
-        self.pvSeq0Ser18 = PV(args.device + ':seq0Ser18-Data-I',
-                              callback=self.__on_pvs_seq_change)
-        self.pvSeq0Ser19 = PV(args.device + ':seq0Ser19-Data-I',
-                              callback=self.__on_pvs_seq_change)
+        self.pvSeq0Ser0 = PV(
+                args.device + ':seq0Ser0-Data-I',
+                callback=self.__on_pvs_seq_change,
+                auto_monitor = True
+        )
+        self.pvSeq0Ser1 = PV(
+                args.device + ':seq0Ser1-Data-I',
+                callback=self.__on_pvs_seq_change,
+                auto_monitor = True
+        )
+        self.pvSeq0Ser2 = PV(
+                args.device + ':seq0Ser2-Data-I',
+                callback=self.__on_pvs_seq_change,
+                auto_monitor = True
+        )
+        self.pvSeq0Ser3 = PV(
+                args.device + ':seq0Ser3-Data-I',
+                callback=self.__on_pvs_seq_change,
+                auto_monitor = True
+        )
+        self.pvSeq0Ser4 = PV(
+                args.device + ':seq0Ser4-Data-I',
+                callback=self.__on_pvs_seq_change,
+                auto_monitor = True
+        )
+        self.pvSeq0Ser5 = PV(
+                args.device + ':seq0Ser5-Data-I',
+                callback=self.__on_pvs_seq_change,
+                auto_monitor = True
+        )
+        self.pvSeq0Ser6 = PV(
+                args.device + ':seq0Ser6-Data-I',
+                callback=self.__on_pvs_seq_change,
+                auto_monitor = True
+        )
+        self.pvSeq0Ser7 = PV(
+                args.device + ':seq0Ser7-Data-I',
+                callback=self.__on_pvs_seq_change,
+                auto_monitor = True
+        )
+        self.pvSeq0Ser8 = PV(
+                args.device + ':seq0Ser8-Data-I',
+                callback=self.__on_pvs_seq_change,
+                auto_monitor = True
+        )
+        self.pvSeq0Ser9 = PV(
+                args.device + ':seq0Ser9-Data-I',
+                callback=self.__on_pvs_seq_change,
+                auto_monitor = True
+        )
+        self.pvSeq0Ser10 = PV(
+                args.device + ':seq0Ser10-Data-I',
+                callback=self.__on_pvs_seq_change,
+                auto_monitor = True
+        )
+        self.pvSeq0Ser11 = PV(
+                args.device + ':seq0Ser11-Data-I',
+                callback=self.__on_pvs_seq_change,
+                auto_monitor = True
+        )
+        self.pvSeq0Ser12 = PV(
+                args.device + ':seq0Ser12-Data-I',
+                callback=self.__on_pvs_seq_change,
+                auto_monitor = True
+        )
+        self.pvSeq0Ser13 = PV(
+                args.device + ':seq0Ser13-Data-I',
+                callback=self.__on_pvs_seq_change,
+                auto_monitor = True
+        )
+        self.pvSeq0Ser14 = PV(
+                args.device + ':seq0Ser14-Data-I',
+                callback=self.__on_pvs_seq_change,
+                auto_monitor = True
+        )
+        self.pvSeq0Ser15 = PV(
+                args.device + ':seq0Ser15-Data-I',
+                callback=self.__on_pvs_seq_change,
+                auto_monitor = True
+        )
+        self.pvSeq0Ser16 = PV(
+                args.device + ':seq0Ser16-Data-I',
+                callback=self.__on_pvs_seq_change,
+                auto_monitor = True
+        )
+        self.pvSeq0Ser17 = PV(
+                args.device + ':seq0Ser17-Data-I',
+                callback=self.__on_pvs_seq_change,
+                auto_monitor = True
+        )
+        self.pvSeq0Ser18 = PV(
+                args.device + ':seq0Ser18-Data-I',
+                callback=self.__on_pvs_seq_change,
+                auto_monitor = True
+        )
+        self.pvSeq0Ser19 = PV(
+                args.device + ':seq0Ser19-Data-I',
+                callback=self.__on_pvs_seq_change,
+                auto_monitor = True
+        )
         self.pvStart = PV(args.device + ':seq0Ctrl-Start-I')
         self.pvStop = PV(args.device + ':seq0Ctrl-Stop-I')
         self.pvStatus = PV(args.device + ':seq0Ctrl-IsRunning-O',
