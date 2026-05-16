@@ -1109,9 +1109,12 @@ if __name__ == '__main__':
     
     # setup parser
     parser = argparse.ArgumentParser(
+            formatter_class=argparse.RawTextHelpFormatter,
             prog='start_cta_gui.sh',
             description='CTA Graphical interface',
-            formatter_class=argparse.RawTextHelpFormatter
+            epilog="""Example:
+start_cta_gui.sh ESA SAR-CCTA-TI2
+            """
             )
     parser.add_argument(
             'esx', 
