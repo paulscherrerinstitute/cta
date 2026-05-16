@@ -345,11 +345,25 @@ class SequenceTableModel(QAbstractTableModel):
 
         logging.debug(series)
 
+        # normalize input ( [array(0)], [0] and None depending on status...)
+        normalised = []
+        for s in series:
+            if s is None:
+                normalised.append([])
+            else:
+                normalised.append([
+                    int(numpy.asarray(x).item()) 
+                    for x in s 
+                    if x is not None and numpy.asarray(x).size==1
+                ])
+
+        series = normalised
+
         # init sequence
         s = 0
 
         for i in range(len(self.__localEvents)):
-            s += int(series[i][0].sum())
+            s += sum(series[i])
         
         self.__sequence = [None] * s
         for i in range(s):
