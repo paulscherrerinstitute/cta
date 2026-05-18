@@ -863,7 +863,8 @@ class SequenceDialog(QWidget):
         self.pvSeq0Ser18.put(numpy.array(series[18]), wait=True)
         self.pvSeq0Ser19.put(numpy.array(series[19]), wait=True)
 
-        self.__update_equal_not_equal(SequenceState.EQUAL)
+        # 'hacky' approach to make sure all sequences were uploaded
+        QTimer.singleShot(600, self.__upload_sequence)
 
         logging.info('SequenceDialog.btnDownAction() is done')
 
