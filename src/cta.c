@@ -1,3 +1,34 @@
+/******************************************************************************
+ * DESCRIPTION:
+ * CTA is an EPICS aSub-based state machine controlling deterministic event
+ * sequence playback on the EVG.
+ *
+ * States:
+ *   IDLE    : waits for valid Pulse ID synchronisation 
+ *   ARMED   : synchronised, waiting for START command
+ *   STARTED : evaluates start conditions (immediate or modulo/offset)
+ *   RUNNING : sequence playback in progress
+ *   STOPPED : resets CTA state and outputs
+ *
+ * /!\ Known issue:
+ * There is a phase shift between CTA and the visible Pulse ID.
+ *
+ * +1 : the current Pulse ID corresponds to the previous pulse
+ *      (event comes first, Pulse ID RX update comes afterwards).
+ *
+ * +2 : CTA aSub processes before the Pulse ID RX record is updated
+ *      by the mrfioc2_regDev software chain.
+ *
+ * +3 : STARTED logic must anticipate the pulse on which the first CTA
+ *      event will actually be emitted (decision is taken one cycle earlier).
+ *
+ * This phase relationship is implementation/runtime dependent.
+ *
+ * TODO:
+ * Implement a proper phase alignment detection mechanism instead of relying
+ * on hardcoded offsets.
+ ******************************************************************************/
+
 #include <aSubRecord.h>
 #include <dbDefs.h>
 #include <stdlib.h>
@@ -111,18 +142,13 @@ long cta_state_machine(aSubRecord* prec) {
 				*out_enable_evt = 1;
 			if(last_state == STARTED) 
 				*out_started_at = pid + 2;     // update starting pid 
-			// NOTE: there is a shift of 2 pulse ID. One is because the current pulse ID is the previous one
-			// (first event, then pulse ID). The second shift is because aSub processes faster than the Pulse ID RX
-			// record (from mrfioc2_regDev). A phase detection mechanism would help assert that. For now, we live 
-			// with this phase alignement, which is true for all system (but can change as it depends on runtime).
 			break;
 
 		case STARTED:
 			// Manages configuration mode 
 			//
 			// Uses next PID because aSub processes after events sequence
-			// see NOTE above
-			next_pid = pid + 2;
+			next_pid = pid + 3;
 			//
 			// MODE: 0 = start immediately | 1 = start with divisor and offset
 			// Divisor
