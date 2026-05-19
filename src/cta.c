@@ -110,14 +110,19 @@ long cta_state_machine(aSubRecord* prec) {
 			else 
 				*out_enable_evt = 1;
 			if(last_state == STARTED) 
-				*out_started_at = pid;     // update starting pid
+				*out_started_at = pid + 2;     // update starting pid 
+			// NOTE: there is a shift of 2 pulse ID. One is because the current pulse ID is the previous one
+			// (first event, then pulse ID). The second shift is because aSub processes faster than the Pulse ID RX
+			// record (from mrfioc2_regDev). A phase detection mechanism would help assert that. For now, we live 
+			// with this phase alignement, which is true for all system (but can change as it depends on runtime).
 			break;
 
 		case STARTED:
 			// Manages configuration mode 
 			//
 			// Uses next PID because aSub processes after events sequence
-			next_pid = pid + 1;
+			// see NOTE above
+			next_pid = pid + 2;
 			//
 			// MODE: 0 = start immediately | 1 = start with divisor and offset
 			// Divisor
