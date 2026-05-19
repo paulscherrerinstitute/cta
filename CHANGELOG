@@ -1,3 +1,8 @@
+2.0.3 2026-19-05
+  - Fix Pulse ID shift issue (see NOTE in src/cta.c) - phase alignment mechanism would be nice
+  - Fix GUI issue with updating the equal_not_equal flag upon seuqence upload
+  - Re-add setup_data_api in /lib/setup.py (was falsey removed with distutils).
+
 2.0.2 2026-16-05
   - Fix bug with GUI, 'equal not equal' flag not updated when sequence is modified via API
 
