@@ -1,3 +1,7 @@
+2.0.4 2026-19-05
+  - Fix next_pid shift issue. 
+  - Add comments in src/cta.c describing the shift issue and future improvements
+
 2.0.3 2026-19-05
   - Fix Pulse ID shift issue (see NOTE in src/cta.c) - phase alignment mechanism would be nice
   - Fix GUI issue with updating the equal_not_equal flag upon seuqence upload
