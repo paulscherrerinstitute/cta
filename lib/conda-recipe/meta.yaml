@@ -1,6 +1,8 @@
+{% set data = load_setup_py_data() %}
+
 package:
     name: cta_lib
-    version: "1.0.2"
+    version: {{ data["version"] }}
 
 source:
     path: ..
@@ -23,5 +25,5 @@ build:
       - cta_lib_ex04_callbacks = cta_lib.cta_lib_ex04_callbacks:main
 
 about:
-    home: "https://gitea.psi.ch/epics_ioc_modules/cta/src/branch/master/lib"
-    summary: "Python library to interact with CTA app on IOC" 
+    home: {{ data["url"] }}
+    summary: {{ data["description"] }}

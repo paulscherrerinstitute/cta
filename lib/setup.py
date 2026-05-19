@@ -4,7 +4,7 @@ setup(
     name='cta_lib',
     version='1.0.2',
     packages=['cta_lib'],
-    url='https://git.psi.ch/epics_ioc_modules/cta',
+    url='https://gitea.psi.ch/epics_ioc_modules/cta',
     license='',
     author='',
     author_email='',
