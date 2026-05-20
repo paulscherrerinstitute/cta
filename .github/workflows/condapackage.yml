@@ -1,0 +1,39 @@
+name: Conda Package
+
+on:
+  workflow_dispatch: # allow manual triggering from the UI
+  push:
+    tags:
+      - '*'
+
+jobs:
+  publish-conda-package:
+    runs-on: ubuntu-latest
+
+    steps:
+    - uses: actions/checkout@v2
+
+    - name: Prepare
+      run: |
+        $CONDA/bin/conda config --set report_errors false
+        $CONDA/bin/conda config --set always_yes yes
+        $CONDA/bin/conda config --set changeps1 no
+        $CONDA/bin/conda config --set anaconda_upload yes
+
+        $CONDA/bin/conda config --append channels conda-forge
+        $CONDA/bin/conda config --append channels paulscherrerinstitute
+
+        $CONDA/bin/conda config --show-sources
+
+        $CONDA/bin/conda install --quiet conda-libmamba-solver
+        $CONDA/bin/conda config --set solver libmamba
+
+        $CONDA/bin/conda install --quiet anaconda-client conda-build conda-verify
+
+        $CONDA/bin/conda info -a
+
+    - name: Build and upload
+      env:
+        ANACONDA_TOKEN: ${{ secrets.ANACONDA_TOKEN }}
+      run: |
+        $CONDA/bin/conda build --token $ANACONDA_TOKEN .conda-recipe
