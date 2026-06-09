@@ -1188,7 +1188,7 @@ if __name__ == '__main__':
             prog='start_cta_gui.sh',
             description='CTA Graphical interface',
             epilog="""Example:
-start_cta_gui.sh ESA SAR-CCTA-TI2
+start_cta_gui.sh SFTEST SFTEST-CCTA-TI2
             """
             )
     parser.add_argument(

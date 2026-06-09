@@ -1,3 +1,8 @@
+2.0.5 2026-09-06
+  - Update lib/README.md and ui/README.md with new deployment via paulscherrerinstitute conda channel
+  - Add TODO for unified conda package.
+  - Minor fix in README
+
 2.0.4 2026-19-05
   - Fix next_pid shift issue. 
   - Add comments in src/cta.c describing the shift issue and future improvements
