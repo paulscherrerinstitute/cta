@@ -25,7 +25,7 @@ Required Python dependencies:
 
 ## Installation
 
-### Option 1: Install into an existing Python environment (deployment)
+### Option 1: Install from source 
 
 Activate the target Python environment and install from source:
 
@@ -35,9 +35,19 @@ python -m pip install .
 
 This installs `cta_lib` together with its required Python dependencies.
 
-### Option 2: Build and install as a Conda package
+### Option 2: Install from the PSI Conda channel (deployment)
 
-Build the package:
+Create or activate the target Conda environment and install:
+
+```bash
+conda install -c paulscherrerinstitute cta_lib
+```
+
+This is the recommended deployment method. 
+
+### Option 3: Local package testing 
+
+Create or activate the target Conda environment and build:
 
 ```bash
 cd conda-recipe
@@ -49,8 +59,6 @@ Install it into the target environment:
 ```bash
 conda install --use-local cta_lib
 ```
-
-This option is recommended for controlled Conda-based deployments.
 
 ## Example Usage
 

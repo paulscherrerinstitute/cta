@@ -15,7 +15,24 @@ The following must be available:
 
 ## Installation
 
-See /lib/REAMDE.md for CTA library installation 
+See ../lib/README.md for CTA library installation 
+
+## Deployment 
+
+The CTA GUI requires:
+
+ - cta_lib installed in the target Python environment 
+ - PyQt5 installed in the same environment 
+
+The following files must be deployed together:
+
+ - cta_gui.py
+ - start_cta_gui.sh 
+
+# TODO 
+
+ - In long term, create a conda package for cta_gui, that requires cta_lib to deploy everything at once. 
+ - Update cta performances ui.
 
 ## Usage
 
