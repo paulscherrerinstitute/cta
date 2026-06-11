@@ -35,12 +35,19 @@ python -m pip install .
 
 This installs `cta_lib` together with its required Python dependencies.
 
-### Option 2: Install from the PSI Conda channel (deployment)
+### Option 2: Install from the PSI Conda channel (deployment in sf-lc )
 
-Create or activate the target Conda environment and install:
+Create or activate the target Conda environment and install. Note, add conda-forge to install the latest PyEpics version. Otherwise, an old PyEpics version from the paulscherrerinstitute channel gets loaded. 
 
 ```bash
-conda install -c paulscherrerinstitute cta_lib
+conda create -p /sf/controls/applications/cta_lib-v<VERSION> python=3.14
+conda install -c conda-forge -c paulscherrerinstitute cta_lib
+```
+
+Create the symlink:
+
+```bash
+ln -sfn cta_lib-v<VERSION> cta_lib
 ```
 
 This is the recommended deployment method. 
