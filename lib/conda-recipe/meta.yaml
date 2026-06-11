@@ -13,7 +13,7 @@ requirements:
         - setuptools
     run:
         - python >=3.3
-        - pyepics
+        - pyepics >=3.5.10
         - numpy
 
 build:
