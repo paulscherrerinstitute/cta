@@ -2,7 +2,7 @@ from setuptools import setup
 
 setup(
     name='cta_lib',
-    version='1.0.2',
+    version='1.0.3',
     packages=['cta_lib'],
     url='https://gitea.psi.ch/epics_ioc_modules/cta',
     license='',
