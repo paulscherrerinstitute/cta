@@ -1,5 +1,6 @@
 2.0.6 2026-11-06
   - Bump cta_lib dependency: PyEpics to 3.5.10 - otherwise conda loads an old PyEpics from paulscherrerinstitute channel
+  - Bump cta_lib to 1.0.3
   - Update start_cta_gui.sh script to new deployment workflow (/opt/gfa/ deprecated).
 
 2.0.5 2026-09-06
