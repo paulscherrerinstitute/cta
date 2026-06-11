@@ -1,3 +1,6 @@
+2.0.7 2026-11-06
+  - Update lib/README.md with deployment instructions for SF
+
 2.0.6 2026-11-06
   - Bump cta_lib dependency: PyEpics to 3.5.10 - otherwise conda loads an old PyEpics from paulscherrerinstitute channel
   - Bump cta_lib to 1.0.3
