@@ -51,4 +51,4 @@ if [ $# -eq 0 ] || [ "$1" = "--help" ] || [ "$1" = "-h" ]; then
 	exec "$PYTHON" "$CTA_GUI_DIR/cta_gui.py" --help
 fi
 
-exec "$PYTHON" "$CTA_GUI_DIR/cta_gui.py" "$@"
+exec "$PYTHON" "cta_gui.py" "$@"
