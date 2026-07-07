@@ -1024,12 +1024,12 @@ class SequenceDialog(QWidget):
 
         series = [None] * len(self.__localEvents)
 
+        length = self.pvLength.get()
+        
         if length is None:
             logging.warning("pvLength not available yet, retrying in 500 ms")
             QTimer.singleShot(500, self.__upload_sequence)
-        return
-
-        length = self.pvLength.get()
+            return
         
         if length is None:
             logging.warning("pvLength not available yet, retrying in 500 ms")
