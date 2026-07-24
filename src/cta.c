@@ -44,7 +44,6 @@ typedef enum {
 
 static unsigned short     cycles_cnt = 0; // Counter for CTA cycles
 static unsigned long long last_pid   = 0; // Last Pulse ID
-static unsigned long long saved_pid  = 0; // Saved Pulse ID for sequence offset calculation
 static unsigned long long next_pid   = 0; // Next Pulse ID 
 static state_t            state      = 0; // State machine current state
 static state_t            last_state = 0; // State machine last state
@@ -115,7 +114,6 @@ long cta_state_machine(aSubRecord* prec) {
 			*out_index_global = 0;             // reset index
 			*out_stop         = 0;             // reset stop button
 			cycles_cnt        = 0;             // reset CTA sequenc cycle counter
-			saved_pid         = 0;             // reset saved pid
 			break;
 
 		case RUNNING:
@@ -151,11 +149,9 @@ long cta_state_machine(aSubRecord* prec) {
 			next_pid = pid + 3;
 			//
 			// MODE: 0 = start immediately | 1 = start with divisor and offset
-			// Divisor
-			if(cfgMod && !saved_pid && (next_pid % cfgModDiv)==0 ) 
-				saved_pid = next_pid;
-			// Offset 
-			if(!cfgMod || (next_pid - saved_pid == cfgModOff)) {
+			// cfgModDiv in second term is used to normalise the offset if it is
+			// higher than the divisor (prevented by ui anyway). 
+			if(!cfgMod || (next_pid % cfgModDiv) == (cfgModOff % cfgModDiv) ) {
 				*out_enable_evt = 1;       // enable events
 				*out_running    = 1;       // update status 'running'
 				*out_start      = 0;       // reset start button
