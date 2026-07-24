@@ -1142,7 +1142,6 @@ class SequenceDialog(QWidget):
                 self.__btnStop.setDisabled(False)
         elif pvname == self.pvStartedAt.pvname:
             self.__leditStartedAt.setText(str(int(value)))
-            QApplication.clipboard().setText(self.__leditStartedAt.text())
         else:
             raise RunTimeError('run status pvs callback called for unexpected pv')
 
